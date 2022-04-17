@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <style>
+        .form-control{
+            background: none;
+            width: auto;
+            margin: 15px;
+            display: inline-block;
+        }
+
+
+    </style>
+</head>
+
+<div class="col-12">
+    <div class="" style="margin-left:20px;">
+        <div style="display: flex;justify-content: center;">
+            <h4>Feeback questions page</h4>
+        </div><hr><br>
+
+        <form method="post" action="{% url 'feedback_event' event_id %}">
+            
+            {% csrf_token %}
+
+        <br>
+            {% for i in data %}
+            
+                    <div class="col-12" style="display: flex;justify-content: right;">
+                        <div class="col-4" style="margin: auto auto;">
+                            <h3 id="quote" style="font-weight: initial;font-size: 1.3rem;">{{ i.fed_questions }}</h3>
+                        </div>
+
+                        <input type="hidden" value="{{ data|length }}" name="fed_length">
+                        <div class="col-8" style="display: flex;margin-right: -146px;">
+                            <div class="form-group">
+                                <select class="form-control" name="ahahaha{{ forloop.counter0 }}" style="width: 203px;" id="rate">
+                                  <option selected>0</option>
+                                  <option>1</option>
+                                  <option>2</option>
+                                  <option>3</option>
+                                  <option>4</option>
+                                  <option>5</option>
+                
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+        
+            {% endfor %}
+
+
+
+            <input style="margin-left:100px;" type="submit" class="form-control" value="submit"/>
+
+                </form>
+
+                <hr>    
+
+    </div>
+</div>
+
+
+{% endblock %}

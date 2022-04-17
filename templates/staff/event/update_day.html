@@ -1,0 +1,165 @@
+
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .form-control{
+        background: none;
+        width: auto;
+        margin: 15px;
+        display: inline-block;
+    }
+
+
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: #03A9F4 1px solid;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.back-button.back .arrow-wrap {
+  left: -50%;
+}
+.back-button:hover {
+  background: #03A9F4;
+}
+.back-button:hover .arrow-wrap span {
+  background: #fff;
+}
+.back-button .arrow-wrap {
+  display: block;
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease;
+}
+.back-button .arrow-wrap span {
+  height: 1px;
+  left: 0;
+  top: 50%;
+  background: #03A9F4;
+  position: absolute;
+  display: block;
+  transition: background 0.3s ease;
+}
+.back-button .arrow-wrap .arrow-part-1 {
+  width: 100%;
+  transform: translate(0, -50%);
+}
+.back-button .arrow-wrap .arrow-part-2 {
+  width: 60%;
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
+}
+.back-button .arrow-wrap .arrow-part-3 {
+  width: 60%;
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+}
+
+</style>
+
+
+<div style="margin-left:50px;">
+  <a href="{% url 'show_event' %}" style="color:#4125dd;"> All Events > </a> <a href="{% url 'show_days' event_id %}"  style="color:#4125dd;">Days > </a> <a> Day schedule </a>
+</div>
+<hr>
+
+
+<div class="col-12">
+    <div class="row" style="justify-content: center;">
+        <div class="input_fields_wrap" style="display: inline-block;">
+            <div style="display: flex;justify-content: center;">
+                <h4> Day Details Page </h4>
+            </div><hr><br>
+            <form action="{% url 'update_day' day_id %}" method="post">
+                
+                {% csrf_token %}
+
+            <table>
+                <tr>
+                        <td>
+                            <input type="text" name="title" id="Sdsd" value="{{ form.title.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Name" readonly>
+                            <input type="text" name="sub_title" id="Sdsd" value="{{ form.sub_title.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Sub title">
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           
+                            <input type="datetime-local" name="start_date" id="start_date" class="form-control get_timedate" value="">
+                            <input type="datetime-local" name="end_date" id="end_date" class="form-control get_timedate" value="">
+
+                           
+                        </td> 
+                    </tr>
+                   
+                    
+                    <tr>
+                        <td>
+                            <textarea name="description" id="Sdsd" value="{{ form.description.value|default_if_none:'' }}" class="form-control input-group mb-3 get" rows="10" cols="100">Event Description </textarea>
+                        </td>
+                    </tr>
+                    
+                    {% if update != False %}
+
+                    <tr>
+                        <td>
+                            <input class="form-control" type="submit" style="background: #4125dd;color: white;padding: 6px 12px;" value="Update">
+                        </td>
+                    </tr>
+                    
+                    {% endif %}
+
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extrascript %}
+
+<script>
+
+    let a = "{{ form.start_date.value|date:'Y-m-d' }}" 
+    let b = "{{ form.start_date.value|date:'H:i' }}" 
+
+    let c = "{{ form.end_date.value|date:'Y-m-d' }}" 
+    let d = "{{ form.end_date.value|date:'H:i' }}" 
+
+
+    date1 = a+'T'+b
+    date2 = c+'T'+d
+
+
+    
+
+    
+    
+    document.getElementById("start_date").value = date1;
+    document.getElementById("end_date").value = date2;
+    
+  
+    console.log(localDateTime)
+
+</script>
+
+{% endblock %}
+
+
+{{ data.as_p }}

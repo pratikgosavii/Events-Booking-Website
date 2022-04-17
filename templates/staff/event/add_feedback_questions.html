@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <style>
+        .form-control{
+            background: none;
+            width: auto;
+            margin: 15px;
+            display: inline-block;
+        }
+
+
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: #03A9F4 1px solid;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.back-button.back .arrow-wrap {
+  left: -50%;
+}
+.back-button:hover {
+  background: #03A9F4;
+}
+.back-button:hover .arrow-wrap span {
+  background: #fff;
+}
+.back-button .arrow-wrap {
+  display: block;
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease;
+}
+.back-button .arrow-wrap span {
+  height: 1px;
+  left: 0;
+  top: 50%;
+  background: #03A9F4;
+  position: absolute;
+  display: block;
+  transition: background 0.3s ease;
+}
+.back-button .arrow-wrap .arrow-part-1 {
+  width: 100%;
+  transform: translate(0, -50%);
+}
+.back-button .arrow-wrap .arrow-part-2 {
+  width: 60%;
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
+}
+.back-button .arrow-wrap .arrow-part-3 {
+  width: 60%;
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+}
+
+    </style>
+</head>
+
+<a>
+
+<div style="margin-left:50px;">
+  {% comment %} <a href="{% url 'show_event' %}" style="color:#4125dd;"> All Events > </a> <a  href="{% url 'show_days' %}" style="color:#4125dd;"> Days > </a>  <a  href="{% url 'show_day_schedule' %}" style="color:#4125dd;"> Day Schedule > </a> <a> Add Day Schedule </a> {% endcomment %}
+</div>
+
+<div class="col-12">
+    <div class="row" style="justify-content: center;">
+        
+        <div class="input_fields_wrap" style="display: inline-block;">
+            
+            <form>
+
+              {% csrf_token %}
+
+              <div class="form-group">
+                <select class="form-control" style="width: 203px;" id="event_id">
+                  <option selected>Event</option>
+
+                  {% for i in event_values %}
+                  <option value="{{ i.id }}">{{ i.name }}</option>
+
+                  {% endfor %}
+                 
+                </select>
+              </div>
+              
+                <div id="fooBar">
+
+                    <div style="display: block;">
+                
+                        <input type="text" name="dynamic" id="Sdsd" style="width:600px" class="form-control input-group mb-3 get" placeholder="Question">
+                        
+                        <button name="sdsdfd"  id="frfregre" class="form-control input-group mb-3 get" >Add </button>
+
+                    </div>
+                </div>
+                  
+                </table>
+
+                <button name="dydsdcsdnamic" id="sdgyshd" class="form-control input-group mb-3 get" > Submit </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    document.getElementById("frfregre").addEventListener("click", function(event){
+        event.preventDefault()
+        alert('he')
+            
+        // 'foobar' is the div id, where new fields are to be added
+
+
+        var myHtml =
+        //Append the element in page (in span).
+       
+        ` <div style="display: block;"><input type="text" style="width:600px" name="dynamic" id="Sdsd" class="form-control input-group mb-3 get" placeholder="Question"> </div>
+        `
+
+        $("#fooBar").append(myHtml); 
+    });
+    
+
+    document.getElementById("sdgyshd").addEventListener("click", function(event){
+      event.preventDefault()
+
+      alert('here')
+
+
+        var selchbox = [];
+
+        fe_questions = document.getElementsByName('dynamic');
+        event_id = document.getElementById('event_id').value;
+        alert('length')
+        alert(fe_questions.length)
+
+        for (var i = 0; i < fe_questions.length; i++) {
+            alert('in')
+            selchbox.push(fe_questions[i].value);
+        }
+
+        alert(event_id)
+        alert(selchbox)
+        
+        $.ajax({
+            cache: false, // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'add_feedback_questions' %}",
+            data: {
+                csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                fe_questions: selchbox, // add the country id to the POST parameters
+                event_id: event_id, // add the country id to the POST parameters
+        },
+
+        success: function (data) {
+
+            alert('done')
+        },
+        });
+      });
+
+
+</script>
+
+{% endblock %}

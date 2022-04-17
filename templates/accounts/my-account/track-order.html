@@ -1,0 +1,49 @@
+
+<style>
+
+
+@media (max-width:480px)   {
+   .nav-link{
+
+        width: fit-content;
+    }
+    
+}
+
+</style>
+
+
+
+<!-- <div class="container"> -->
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Track Order</h3>
+            <p>#234234</p>
+        </div>
+        <div class="card-body p-4">
+            <ul class="events">
+                <li>
+                    <time datetime="10:03" {% if status >= 1 %}class="completed" {% endif %}>10:03</time>
+                    <span {% if status  >= 1 %} class="completed" {% endif %}> <strong>Order Open</strong> On time</span></li>
+
+                <li>
+                    <time datetime="10:03" {% if status >= 2 %} class="completed" {% endif %}>10:03</time>
+                    <span {% if status  >= 2 %} class="completed" {% endif %}> <strong> Order Confirm </strong> On time</span></li>
+
+                <li>
+                    <time datetime="10:03"  {% if status >= 3 %} class="completed" {% endif %}>10:03</time>
+                    <span> {% if status  >= 3 %} class="completed" {% endif %} <strong>Order packing</strong> On time and other text that may span over 2 lines</span></li>
+
+                <li>
+                    <time datetime="10:03" {% if status >= 4 %} class="completed" {% endif %}>10:03</time>
+                    <span> {% if status  >= 4 %} class="completed" {% endif %} <strong>Out For Delivery</strong> On time</span></li>
+
+                <li>
+                    <time datetime="10:03" {% if status >= 5 %} class="completed" {% endif %}>10:03</time>
+                    <span> {% if status  >= 5 %} class="completed" {% endif %} <strong>Delivered</strong> On time</span></li>
+            </ul>
+        </div>
+    </div>
+
+<!-- </div> -->

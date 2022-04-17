@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .form-control{
+            background: none;
+            width: auto;
+            margin: 15px;
+            display: inline-block;
+        }
+
+</style>
+
+
+<div style="margin-left:50px;">
+  <a href="{% url 'show_event' %}" style="color:#4125dd;"> All Events > </a><a href="{% url 'show_days' event_id %}"  style="color:#4125dd;">Days > </a>  <a> Day Schedule</a>
+</div>
+<hr>
+
+<div class="col-12">
+   <div class="container" style="margin-left:20px;margin-right:20px;">
+    <div style="display: flex;justify-content: center;">
+        <h4>Day Schedule Page</h4>
+    </div><hr><br>
+       
+       <div class="get-quote">
+            <div class="col-12" style="display: flex;justify-content: center;" >
+                <a href="{% url 'add_day_schedule_form' day_id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;" class="btn">Add Schedule +</button></a>
+            </div>
+            
+            {% for i in data %}
+            
+                <div class="row">
+                    <div class="col-sm-10 col-12">
+                        <h3 id="quote" style="font-weight: initial;font-size: 1.3rem;">{{ i.title }}</h3>
+                    </div>
+                    <div class="col-sm-2 col-12" style="display: flex;">
+                        <a href="{% url 'day_schedule_details' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-info">View schedule</button></a>
+                        <a href="{% url 'day_schedule_update' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Update day</button></a>
+                        <a href="{% url 'day_schedule_delete' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-danger">Delete day</button></a>
+                    </div>
+                </div>
+               <hr>
+       
+            {% endfor %}
+   
+
+       </div>
+   </div>
+</div>
+
+{% endblock %}

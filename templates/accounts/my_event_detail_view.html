@@ -1,0 +1,337 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="speaker-single section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-5 mb-5 mb-md-0">
+				<img src="{{ data.event.image.url }}" alt="" class="img-fluid w-100">
+			</div>
+			<div class="col-lg-6 col-md-7">
+				<div class="speaker-single-wrap">
+					<div class="speaker-header mb-4">
+						<h2>{{ data.event.name }}</h2>
+						<span class="text-color">Department :- {{ data.event.department }}</span><br>
+						<span class="text-color">HOD :- {{ data.event.hod }}</span><br>
+						<span class="text-color">Event Cordinator :- {{ data.event.event_cordinator }}</span>
+					</div>
+
+					<p>Min-Max participants:- {{ data.event.min_participants }} to {{ data.event.max_participants }}</p>
+					<p>{{ data.event.description }}</p>
+
+					<h5 class="mb-3 mt-5">Follow Me</h5>
+					<ul class="list-inline social-single">
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-pinterest"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-twitter"></i></a></li>
+					</ul>
+
+					<h5 class="mt-4">Email</h5>
+					<p>Martin@mail.com</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section-schedule section">
+	<div class="container">
+	  <div class="row section-heading">
+		<div class="col-lg-6">
+		  <div class="heading">
+			<span class="stroke-text">Schedule</span>
+			<div class="pl-90">
+			  <h2 class="mt-2">Topic Discussion</h2>
+			  <p>Accusantium provident suscipit dicta magni dolor deserunt nam obcaecati non veritatis optio.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-12">
+		  <nav class="nav nav-pills nav-justified" id="TopicTab" role="tablist">
+			<a class="nav-item nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+			  aria-controls="home" aria-selected="true">
+			  <h2>Day 1</h2>
+			  <p>13 Nov ,2019 [09.00am - 04.00pm]</p>
+			</a>
+  
+			<a class="nav-item nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+			  aria-controls="profile" aria-selected="false">
+			  <h2>Day 2</h2>
+			  <p>13 Nov ,2019 [09.00am - 04.00pm]</p>
+			</a>
+  
+			<a class="nav-item nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+			  aria-controls="contact" aria-selected="false">
+			  <h2>Day 3</h2>
+			  <p>13 Nov ,2019 [09.00am - 04.00pm]</p>
+			</a>
+		  </nav>
+  
+		  <div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  
+			  <ul class="mt-5 time-table pl-0 list-unstyled">
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">9.00am</h4>
+				  <div class="content">
+					<h3 class="mb-3">Introduction of material Design</h3>
+					<span class="h6 ">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/wordpress.png" alt="" class="img-fluid">
+				  </div>
+				</li>
+  
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">12.20pm</h4>
+				  <div class="content">
+					<h3 class="mb-3">Marketing Matters in design area</h3>
+					<span class="h6">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/big-data.png" alt="" class="img-fluid">
+				  </div>
+				</li>
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">2.20pm</h4>
+				  <div class="content">
+					<h3 class="mb-3">Launch Break</h3>
+					<p>Doloribus veritatis, placeat, laborum amet voluptates cupiditate sapiente, reiciendis nemo
+					  recusandae quo mollitial.</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/lunch.jpg" alt="" class="img-fluid">
+				  </div>
+				</li>
+  
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 ">
+				  <h4 class="time text-color">02.40pm</h4>
+				  <div class="content">
+					<h3 class="mb-3 ">Cultures of Creativity</h3>
+					<span class="h6">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/creativity.jpg" alt="" class="img-fluid">
+				  </div>
+				</li>
+			  </ul>
+			</div>
+  
+			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  
+			  <ul class="mt-5 time-table pl-0">
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">9.00am</h4>
+				  <div class="content">
+					<h3 class="mb-3">Launch Break</h3>
+					<p>Doloribus veritatis, placeat, laborum amet voluptates cupiditate sapiente, reiciendis nemo
+					  recusandae quo mollitial.</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/lunch.jpg" alt="" class="img-fluid">
+				  </div>
+				</li>
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">12.00pm</h4>
+				  <div class="content">
+					<h3 class="mb-3">Introduction of material Design</h3>
+					<span class="h6 ">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/wordpress.png" alt="" class="img-fluid">
+				  </div>
+				</li>
+  
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">12.40pm</h4>
+				  <div class="content">
+					<h3 class="mb-3">Marketing Matters in design area</h3>
+					<span class="h6">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/big-data.png" alt="" class="img-fluid">
+				  </div>
+				</li>
+  
+  
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 ">
+				  <h4 class="time text-color">02.40pm</h4>
+				  <div class="content">
+					<h3 class="mb-3 ">Cultures of Creativity</h3>
+					<span class="h6">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/creativity.jpg" alt="" class="img-fluid">
+				  </div>
+				</li>
+			  </ul>
+			</div>
+  
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+			  <ul class="mt-5 time-table pl-0">
+  
+  
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">9.00am</h4>
+				  <div class="content">
+					<h3 class="mb-3">Marketing Matters in design area</h3>
+					<span class="h6">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/big-data.png" alt="" class="img-fluid">
+				  </div>
+				</li>
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">12.20pm</h4>
+				  <div class="content">
+					<h3 class="mb-3">Introduction of material Design</h3>
+					<span class="h6 ">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/wordpress.png" alt="" class="img-fluid">
+				  </div>
+				</li>
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+				  <h4 class="time text-color">2.00pm</h4>
+				  <div class="content">
+					<h3 class="mb-3">Launch Break</h3>
+					<p>Doloribus veritatis, placeat, laborum amet voluptates cupiditate sapiente, reiciendis nemo
+					  recusandae quo mollitial.</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/lunch.jpg" alt="" class="img-fluid">
+				  </div>
+				</li>
+  
+				<li class="d-md-flex align-items-center justify-content-between bg-light p-4 ">
+				  <h4 class="time text-color">02.40pm</h4>
+				  <div class="content">
+					<h3 class="mb-3 ">Cultures of Creativity</h3>
+					<span class="h6">By Risabh moinul</span>
+					<p>CEo of themefisher</p>
+				  </div>
+				  <div class="content-img text-md-right">
+					<img src="images/about/creativity.jpg" alt="" class="img-fluid">
+				  </div>
+				</li>
+			  </ul>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+<section class="section bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="mb-5">
+					<h2>Professional Skills</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-document"></i>
+					<h4 class="mb-3">Course Correction</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5">
+					<i class="tf-ion-android-desktop"></i>
+					<h4 class="mb-3">Execute the Decision</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 ">
+					<i class="tf-ion-android-bulb"></i>
+					<h4 class="mb-3">Planning the Moves</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5">
+					<i class="tf-ion-android-document"></i>
+					<h4 class="mb-3">Analyze the Results</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-desktop"></i>
+					<h4 class="mb-3">Execute the Decision</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-bulb"></i>
+					<h4 class="mb-3">Planning the Moves</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="footer section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 text-center">
+				<h2 class="text-white mb-3" >Vixcon.
+				</h2>
+				<p class="text-white-50">We are a creative-led experiential Event Production Agency that helps brands connect, engage and evolve. </p>
+
+				<form action="#" class="sub-form mt-4 mb-3">
+					<input type="text" class="form-control" placeholder="Put your email address">
+					<a href="#" class="btn btn-secondary btn-rounded mt-3">Subscribe now</a>
+				</form>
+				<p class="mt-3 text-white-50">We will not spam at your inbox .Don't panic</p>
+
+				<ul class="list-inline footer-socails">
+					<li class="list-inline-item"><a href="#"><i class="tf-ion-social-facebook"></i></a></li>
+					<li class="list-inline-item"><a href="#"><i class="tf-ion-social-twitter"></i></a></li>
+					<li class="list-inline-item"><a href="#"><i class="tf-ion-social-linkedin"></i></a></li>
+					<li class="list-inline-item"><a href="#"><i class="tf-ion-social-pinterest"></i></a></li>
+					<li class="list-inline-item"><a href="#"><i class="tf-ion-social-rss"></i></a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12 text-center mt-5 ">
+				<p class="copy border-top pt-4 text-white-50 mb-0">Copyright Reserved to Themefisher.2019</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+ 

@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<section class="speaker-single section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-5 mb-5 mb-md-0">
+				<img src="{{ data.image.url }}" alt="" class="img-fluid w-100">
+			</div>
+			<div class="col-lg-6 col-md-7">
+				<div class="speaker-single-wrap">
+					<div class="speaker-header mb-4">
+						<h2>{{ data.event.name }}</h2>
+						<span class="text-color">Event Organizer :- {{ data.event_leader }}</span><br>
+						<span class="text-color">Event Cordinator :- {{ data.event_cordiantor }}</span>
+					</div>
+
+					<p>Min-Max participants:- {{ data.min_participants }} to {{ data.max_participants }}</p>
+					<p>{{ data.description }}</p>
+
+					<h5 class="mb-3 mt-5">Follow Me</h5>
+					<ul class="list-inline social-single">
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-pinterest"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-twitter"></i></a></li>
+					</ul>
+
+					<h5 class="mt-4">Email</h5>
+					<p>Martin@mail.com</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section-schedule section">
+	<div class="container">
+	  <div class="row section-heading">
+		<div class="col-lg-6">
+		  <div class="heading">
+			<span class="stroke-text">Schedule</span>
+			<div class="pl-90">
+			  <h2 class="mt-2">Topic Discussion</h2>
+			  <p>Accusantium provident suscipit dicta magni dolor deserunt nam obcaecati non veritatis optio.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-12">
+		  <nav class="nav nav-pills nav-justified" id="TopicTab" role="tablist">
+
+		{% comment %} make first link actve using js {% endcomment %}
+
+		{% for i in days %}
+		
+			<a class="nav-item nav-link" id="home-tab" data-toggle="tab" href="#schedule{{ forloop.counter0 }}" role="tab"
+			  aria-controls="home" aria-selected="true">
+			  <h2>{{ i.title }}</h2>
+			  <p>{{ i.start_date }}</p>
+			</a>
+  
+			
+
+		{% endfor %}
+		  </nav>
+
+			{% comment %} make first link actve using js {% endcomment %}
+  
+		  	<div class="tab-content" id="myTabContent">
+				
+				{% for a in schedule %}
+					<div class="tab-pane fade show" id="schedule{{ forloop.counter0 }}" role="tabpanel" aria-labelledby="home-tab">
+
+						<ul class="mt-5 time-table pl-0 list-unstyled">
+							{%  if not a %}
+<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+									<div class="content">
+										<h3 class="mb-3">No schedule for this day</h3>
+									</div>
+									<div class="content-img text-md-right">
+										<img src="images/about/wordpress.png" alt="" class="img-fluid">
+									</div>
+								</li>
+								
+							{% else %}
+
+								{% for b in a %}
+
+										<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+										<h4 class="time text-color">9.00am</h4>
+										<div class="content">
+											<h3 class="mb-3">{{ b.title }}</h3>
+											
+										</div>
+										<div class="content-img text-md-right">
+											<img src="images/about/wordpress.png" alt="" class="img-fluid">
+										</div>
+										</li>
+
+								{% endfor %}
+
+
+							{% endif %}
+
+			
+						</ul>
+					
+					</div>
+
+				{% endfor %}
+				
+		  	</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+<section class="section bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="mb-5">
+					<h2>Professional Skills</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-document"></i>
+					<h4 class="mb-3">Course Correction</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5">
+					<i class="tf-ion-android-desktop"></i>
+					<h4 class="mb-3">Execute the Decision</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 ">
+					<i class="tf-ion-android-bulb"></i>
+					<h4 class="mb-3">Planning the Moves</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5">
+					<i class="tf-ion-android-document"></i>
+					<h4 class="mb-3">Analyze the Results</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-desktop"></i>
+					<h4 class="mb-3">Execute the Decision</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-bulb"></i>
+					<h4 class="mb-3">Planning the Moves</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+ 

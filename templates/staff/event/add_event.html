@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    <style>
+        .form-control{
+            background: none;
+            width: auto;
+            margin: 15px;
+            display: inline-block;
+        }
+
+        .cd-popup-container {
+            position: relative;
+            width: 90%;
+            max-width: 542px;
+            margin: 4em auto;
+            background: #FFF;
+            border-radius: .25em .25em .4em .4em;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            -webkit-transform: translateY(-40px);
+            -moz-transform: translateY(-40px);
+            -ms-transform: translateY(-40px);
+            -o-transform: translateY(-40px);
+            transform: translateY(-40px);
+            /* Force Hardware Acceleration in WebKit */
+            -webkit-backface-visibility: hidden;
+            -webkit-transition-property: -webkit-transform;
+            -moz-transition-property: -moz-transform;
+            transition-property: transform;
+            -webkit-transition-duration: 0.3s;
+            -moz-transition-duration: 0.3s;
+            transition-duration: 0.3s;
+          }
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: #03A9F4 1px solid;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+.back-button.back .arrow-wrap {
+  left: -50%;
+}
+.back-button:hover {
+  background: #03A9F4;
+}
+.back-button:hover .arrow-wrap span {
+  background: #fff;
+}
+.back-button .arrow-wrap {
+  display: block;
+  position: absolute;
+  height: 70%;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 0.3s ease;
+}
+.back-button .arrow-wrap span {
+  height: 1px;
+  left: 0;
+  top: 50%;
+  background: #03A9F4;
+  position: absolute;
+  display: block;
+  transition: background 0.3s ease;
+}
+.back-button .arrow-wrap .arrow-part-1 {
+  width: 100%;
+  transform: translate(0, -50%);
+}
+.back-button .arrow-wrap .arrow-part-2 {
+  width: 60%;
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
+}
+.back-button .arrow-wrap .arrow-part-3 {
+  width: 60%;
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+}
+
+.textt {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+} 
+
+.textt span { 
+    background:#fff; 
+    padding:0 10px; 
+}
+    </style>
+</head>
+<div style="margin-left:50px;">
+  <a href="{% url 'show_event' %}" style="color:#4125dd;"> All Events > </a> <a> Add Event </a>
+</div>
+<hr>
+
+<div class="col-12">
+    <div class="row" style="justify-content: center;">
+        
+        <div class="input_fields_wrap" style="display: inline-block;">
+            <div style="display: flex;justify-content: center;">
+                <h4>Add events page</h4>
+            </div><hr><br>
+            <form enctype="multipart/form-data" action="{% url 'add_event' %}" method="post">
+                {% csrf_token %}
+
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" name="name" id="Sdsd" value="{{ form.name.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Name">
+                        <input type="text" name="price" id="Sdsd" value="{{ form.price.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Fee">
+                        <input type="text" name="department" id="Sdsd" value="{{ form.department.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Department">
+                        <input type="text" name="hod" id="Sdsd" value="{{ form.hod.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="HOD" Required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       
+                        <input type="datetime-local" name="start_date" id="start_date" class="form-control get_timedate">
+                        <input type="datetime-local" name="end_date" id="end_date" class="form-control get_timedate">
+                       
+                    </td>  
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="file" class="form-control" name="image"  id="image">
+                            <input type="text" name="event_cordinator " id="Sdsd" value="{{ form.event_cordinator.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Event Cordiantor" Required>
+
+                            
+
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" name="min_participants" id="Sdsd" value="{{ form.min_participants.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Min Participation">
+                            <input type="text" name="max_participants" id="Sdsd" value="{{ form.max_participants.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Max participation">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p class="textt"><span>Event Price Money Details </span></p>
+                            <input type="text" name="first_price_money" id="Sdsd" value="{{ form.first_price_money.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="First Price Money">
+                            <input type="text" name="second_price_money" id="Sdsd" value="{{ form.second_price_money.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Second Price Money">
+                            <input type="text" name="third_price_money" id="Sdsd" value="{{ form.third_price_money.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Third Price Money">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea name="description" id="Sdsd" value="{{ form.description.value|default_if_none:'' }}" class="form-control input-group mb-3 get" rows="10" cols="100" Required>{{ form.description.value|default_if_none:'' }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input class="form-control" type="submit" value="submit">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+
+    <input type="text" class="get_subtitle">
+    <input type="text" class="get_subtitle">
+    <input type="button" onclick="geet()" value="sdsd">
+
+</section>
+
+
+<script>
+
+
+//script for add event fileds
+function geet(){
+  var l = $('.get_subtitle').length;
+  var subtitle = [];
+  
+for (i = 0; i < l; i++) { 
+  //Push each element to the array
+
+  subtitle.push($('.get_subtitle').eq(i).val());
+  
+  
+}
+
+
+var arr = [1, 2, 3, 4];
+$.ajax({
+  url: 'http://127.0.0.1:8000/staff/test/',
+  type: 'POST',
+  data: {'arr': arr},
+});
+
+console.log(subtitle)
+var xhr = new XMLHttpRequest();
+xhr.open('POST', 'http://127.0.0.1:8000/staff/test/', true);
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+let ab = [1,2,3,4]
+xhr.send('event_id='+ab);
+
+}
+
+
+</script>
+
+{% endblock %}

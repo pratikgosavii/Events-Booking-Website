@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<head>
+    
+</head>
+
+<body>
+
+    
+<div class="col-12">
+    <form action="{% url 'add_form' %}" method="post">
+
+    {% csrf_token %}
+    <div class="row" style="justify-content: center;">
+        
+        <div class="input_fields_wrap" style="display: inline-block;width: 600px;">
+           
+        <label>  Title </label>    
+        <input type="text" name="title" id="Sdsd"  class="form-control input-group mb-3 get" style="background: white;" placeholder="Title">
+    
+
+    <label>  Description </label><br>
+    <textarea  rows="30" cols="100" name="describe"> </textarea>
+    <hr>
+
+
+    <label style="font-weight: bold;">  Details of program cordinator </label>
+<hr>
+    <label>  Name </label>    
+        <input type="text" name="name" id="Sdsd"  class="form-control input-group mb-3 get" style="background: white;" placeholder="Name">
+    <label>  Department </label>
+        <input type="text" name="department" id="Sdsd"  class="form-control input-group mb-3 get" style="background: white;"  placeholder="Department">
+    <label>  Collage name</label>    
+        <input type="text" name="collage" id="Sdsd"  class="form-control input-group mb-3 get" style="background: white;"  placeholder="Collage name">
+    <label>  Date </label>
+        <input type="datetime-local" name="date" id="birthdaytime" class="form-control get_timedate" style="background: white;"  name="birthdaytime">
+<br><br>
+        <input class="form-control" type="submit" style="width:100px" value="submit">
+<br>
+        </div>
+        </div>
+    </form>
+        </div>
+
+</body>
+
+<script>
+  
+</script>
+
+{% endblock %}

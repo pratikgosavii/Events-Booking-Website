@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% block title %}MANAGE YOUR ACCOUNT{% endblock %}
+{% block styles %}
+<style>
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link {
+        border: none;
+        transition: none;
+        /* border-bottom: 2px solid #333; */
+    }
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        border: none;
+        border-bottom: 2px solid #20c997;
+    }
+
+    .card-img {
+        height: 150px;
+        background: #ccc;
+    }
+
+    .nav {
+        border-right: 1px solid #ccc;
+    }
+    .nav-pills .nav-link.active {
+        background: #333;
+    }
+   
+    .events li {
+        display: flex;
+    }
+
+    .events time {
+        position: relative;
+        color: #ccc;
+        padding: 0 1.5em;
+    }
+
+    .events time::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        top: 0;
+        transform: translateX(50%);
+        border-radius: 50%;
+        background: #fff;
+        border: 1px #ccc solid;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .events time.completed::after {
+        background: green;
+    }
+
+    .events span {
+        padding: 0 1.5em 1.5em 2em;
+        position: relative;
+    }
+
+    .events span::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        height: 100%;
+        border-left: 2px #ccc dashed;
+    }
+
+    .events span.completed::before {
+        border-left: 2px green solid;
+    }
+
+    .events strong {
+        display: block;
+        font-weight: bolder;
+    }
+
+    .events {
+        margin: 1em;
+        width: 50%;
+    }
+
+    .events,
+    .events *::before,
+    .events *::after {
+        box-sizing: border-box;
+        font-family: arial;
+    }
+
+@media (max-width:480px)   {
+   .nav-link{
+
+        width: fit-content;
+    }
+    
+}
+
+   
+
+</style>
+{% endblock %}
+{% block content %}<br><br><br><br><br>
+<div class="container">
+    <div class="row pt-4">
+        <div class="nav col-3 flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link" id="v-pills-accounts-tab" data-toggle="pill" href="#v-pills-accounts" role="tab"
+                aria-controls="v-pills-accounts" onclick="window.location.replace('http://127.0.0.1:8000/accounts/');" aria-selected="true">My Acoount</a>
+            <a class="nav-link" id="v-pills-myorders-tab" data-toggle="pill" href="#v-pills-myorders" role="tab"
+                aria-controls="v-pills-myorders" onclick="window.location.replace('http://127.0.0.1:8000/accounts/myorders');" aria-selected="true">My Orders</a>
+            <a class="nav-link active" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                aria-controls="v-pills-messages" aria-selected="false">Manange Address</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                aria-controls="v-pills-settings" aria-selected="false">Logout</a>
+        </div>
+        <div class="tab-content col-9" id="v-pills-tabContent">
+            
+            <div class="tab-pane active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+                {% if saved_user_addresses %}
+               {% for dest in saved_user_addresses  %}
+
+                <div class="card my-3">
+                   
+                    <div class="card-body row">
+                       
+                        <div class="col-7 offset-right-2" style="margin-left:10px;">
+                            <div style="color:#585858;font-weight:400;">
+                            <h6 style="color:#707070;margin-top:5px;"> {{ dest.name }} </h6><br>
+                                <p class="card-text mb-6"> {{  dest.address_full }} </p>
+                                <p class="card-text mb-6"> {{ landmaark }} </p>
+                                <p class="card-text mb-6"> Akola - {{ dest.pincode }} </p>
+                                <p class="card-text mb-6"> {{ dest.mobilenumber }} </p>  {% if dest.alternate_mobilenumber %} <p class="card-text mb-6"> if alternate mobile number </p> {% endif %}
+                            </div> <br>
+                            <form actiion="{% url 'edit_address' %}" method="post">
+                            {% csrf_token %}
+                                <button class="buttoncustom" style="margin:5px 5px;">Edit address</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                {% endfor %}
+
+                {% else %}
+
+
+                        <form action="{% url 'add_address' %}" method="post">
+
+                            {% csrf_token %}
+                            
+
+                            <h5> Add Address </h5>
+
+                            <div class="customer_details">
+        
+
+                                <div class="customar__field">
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable> Name </lable>
+											<input type="text" id="1"  name="name" readonly>
+										</div>
+										<div class="input_box col-6">
+                                            <lable>Mobile number</lable>
+											<input type="text" id="2" name="mobilenumber" readonly>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Pincode</lable>
+											<input type="text" id="3" name="pincode"  readonly>
+										</div>
+										<div class="input_box col-6">
+                                             <lable>Full address</lable>
+											<input type="text" name="fulladdress"  readonly>
+										</div>
+									</div>
+
+								
+
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Locality</lable>
+											<input type="text" id="4" name="locality"   readonly>
+										</div>
+										<div class="input_box col-6">
+                                             <lable>District </lable>
+											<input type="text" id="5"  name="district" readonly>
+										</div>
+									</div>
+
+                                    <div class="row">
+										<div class="input_box col-6">
+                                            <lable>Address type</lable>
+											<input type="text" id="4" name="addresstype"   readonly>
+                                        </div>
+										
+									</div>
+								</div>
+                                <input type="button" id="submit_btn" value="Submit" onclick="address()" style="background: #2e2e2e none repeat scroll 0 0;margin-top: 10px;border-radius: 0;color: #fff;margin-left: 6px;display: inline-block;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;">
+                                
+							</div>
+
+                        </form>
+                {% endif %}
+            </div>
+            
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

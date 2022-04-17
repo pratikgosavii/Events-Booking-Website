@@ -1,0 +1,73 @@
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    
+    {% if event_data %}
+        <p style="font-size: 23px;font-size: 23px;background: grey;" class="mb-3"> Your booking for Events </p>
+
+		<div class="row">
+
+			{% for i in event_data %}
+			
+			<div class="col-lg-4 col-sm-6">
+				<div class="speaker-block mb-5">
+					<div class="img-block">
+						<img src="{{ i.event.image.url }}" alt="" class="img-fluid" width= "330px" max-height = "330px" height = "330px">
+						<ul class="list-inline speaker-social">
+							<li class="list-inline-item"><a href="{% url 'booking_detail_view' i.id %}" name="event_counter{{ forloop.counter }}" value="{{ i.id }}" class="cd-popup-trigger12">More details</a></li>
+						</ul>
+					</div>
+
+					<div class="speaker-info">
+						
+						<div style="display: inline-block;"> <h4 class="mb-0 mt-3"><a href="speaker-single.html">{{ i.event.name }}</a></h4>  </div>
+						<div style="display: initial;margin-left: 34px;"> {{ i.event.price }} ₹ </div> 
+						<div style="display: initial;margin-left: 34px;"> for ({{ i.entry_for }}) </div>
+						
+					</div>
+				</div>
+			</div>
+
+			{% endfor %}
+			
+		</div>
+
+        {% endif %}
+
+        {% if seminar_data %}
+        <p style="font-size: 23px;font-size: 23px;background: grey;" class="mb-3"> Events </p>
+
+    
+		<div class="row">
+
+			{% for i in event_data %}
+			<div class="col-lg-4 col-sm-6">
+				<div class="speaker-block mb-5">
+					<div class="img-block">
+						<img src="{{ i.event.image.url }}" alt="" class="img-fluid" width= "330px" max-height = "330px" height = "330px">
+						
+					</div>
+
+					<div class="speaker-info">
+						
+						<div style="display: inline-block;"> <h4 class="mb-0 mt-3"><a href="speaker-single.html">{{ i.event.name }}</a></h4>  </div>
+						<div style="display: initial;margin-left: 34px;"> {{ i.event.price }} ₹ </div> 
+						<div style="display: initial;margin-left: 34px;"> for ({{ i.entry_for }}) </div>
+						
+					</div>
+				</div>
+			</div>
+
+			{% endfor %}
+			
+		</div>
+
+        {% endif %}
+
+    </div>
+	
+
+
+{% endblock %}

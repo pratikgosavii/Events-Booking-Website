@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<style>
+
+
+.card {
+    z-index: 0;
+    background-color: #ECEFF1;
+    padding-bottom: 20px;
+    margin-top: 90px;
+    margin-bottom: 90px;
+    border-radius: 10px
+}
+
+.top {
+    padding-top: 40px;
+    padding-left: 13% !important;
+    padding-right: 13% !important
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #455A64;
+    padding-left: 0px;
+    margin-top: 30px
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400
+}
+
+#progressbar .step0:before {
+    font-family: FontAwesome;
+    content: "\f10c";
+    color: #fff
+}
+
+#progressbar li:before {
+    width: 40px;
+    height: 40px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    background: #C5CAE9;
+    border-radius: 50%;
+    margin: auto;
+    padding: 0px
+}
+
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 12px;
+    background: #C5CAE9;
+    position: absolute;
+    left: 0;
+    top: 16px;
+    z-index: -1
+}
+
+#progressbar li:last-child:after {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: absolute;
+    left: -50%
+}
+
+#progressbar li:nth-child(2):after,
+#progressbar li:nth-child(3):after {
+    left: -50%
+}
+
+#progressbar li:first-child:after {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: absolute;
+    left: 50%
+}
+
+#progressbar li:last-child:after {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px
+}
+
+#progressbar li:first-child:after {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px
+}
+
+#progressbar li.active:before,
+#progressbar li.active:after {
+    background: #651FFF
+}
+
+#progressbar li.active:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
+.icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px
+}
+
+.icon-content {
+    padding-bottom: 20px
+}
+
+@media screen and (max-width: 992px) {
+    .icon-content {
+        width: 50%
+    }
+}
+</style>
+</head>
+<body>
+
+
+<section style="padding-bottom:0px;" class="speaker-single section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-5 mb-5 mb-md-0">
+				<img src="{{ data.image.url }}" alt="" class="img-fluid w-100">
+			</div>
+			<div class="col-lg-6 col-md-7">
+				<div class="speaker-single-wrap">
+					<div class="speaker-header mb-4">
+						<h2>{{ data.event.name }}</h2>
+						<span class="text-color">Department :- {{ data.event.department }}</span><br>
+						<span class="text-color">HOD :- {{ data.event.hod }}</span><br>
+						<span class="text-color">Event Cordinator :- {{ data.event.event_cordinator }}</span>
+					</div>
+
+					<p>Min-Max participants:- {{ data.min_participants }} to {{ data.max_participants }}</p>
+					<p>{{ data.description }}</p>
+
+					<h5 class="mb-3 mt-5">Follow Me</h5>
+					<ul class="list-inline social-single">
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-pinterest"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="tf-ion-social-twitter"></i></a></li>
+					</ul>
+
+					<h5 class="mt-4">Email</h5>
+					<p>Martin@mail.com</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<div class="container ">
+    <div class="card">
+        <div class="row d-flex justify-content-between px-3 top">
+            <div class="d-flex">
+                <h5>ORDER <span class="text-primary font-weight-bold">#Y34XDHR</span></h5>
+            </div>
+            <div class="d-flex flex-column text-sm-right">
+                <p class="mb-0">Expected Arrival <span>01/12/19</span></p>
+                <p>USPS <span class="font-weight-bold">234094567242423422898</span></p>
+            </div>
+        </div> <!-- Add class 'active' to progress -->
+        <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <ul id="progressbar" class="text-center">
+                    <li class="active step0"></li>
+                    <li class="active step0"></li>
+                    <li class="active step0"></li>
+                    <li class="step0"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row justify-content-between top">
+            <div class="row d-flex icon-content"> <!-- <img class="icon" src="https://i.imgur.com/9nnc9Et.png"> -->
+                <div class="d-flex flex-column">
+                    <p class="font-weight-bold">Registration</p>
+                </div>
+            </div>
+            <div class="row d-flex icon-content"> <!-- <img class="icon" src="https://i.imgur.com/9nnc9Et.png"> -->
+                <div class="d-flex flex-column">
+                    <p class="font-weight-bold">Round 1</p>
+                </div>
+            </div>
+            <div class="row d-flex icon-content"><!-- <img class="icon" src="https://i.imgur.com/9nnc9Et.png"> -->
+                <div class="d-flex flex-column">
+                    <p class="font-weight-bold">Round2</p>
+                </div>
+            </div>
+            <div class="row d-flex icon-content"><!-- <img class="icon" src="https://i.imgur.com/9nnc9Et.png"> -->
+                <div class="d-flex flex-column">
+                    <p class="font-weight-bold">Final Round</p>
+                </div>
+            </div>
+            <div class="row d-flex icon-content"><!-- <img class="icon" src="https://i.imgur.com/9nnc9Et.png"> -->
+                <div class="d-flex flex-column">
+                    <p class="font-weight-bold">Winner Deceleration</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section style="padding-top:0px;" class="section-schedule section">
+	<div class="container">
+	  <div class="row section-heading">
+		<div class="col-lg-6">
+		  <div class="heading">
+			<span class="stroke-text">Schedule</span>
+			<div class="pl-90">
+			  <h2 class="mt-2">Topic Discussion</h2>
+			  <p>Accusantium provident suscipit dicta magni dolor deserunt nam obcaecati non veritatis optio.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  
+	<div class="container">
+	  <div class="row">
+		<div class="col-lg-12">
+		  <nav class="nav nav-pills nav-justified" id="TopicTab" role="tablist">
+
+		{% comment %} make first link actve using js {% endcomment %}
+
+		{% for i in days %}
+		
+			<a class="nav-item nav-link" id="home-tab" data-toggle="tab" href="#schedule{{ forloop.counter0 }}" role="tab"
+			  aria-controls="home" aria-selected="true">
+			  <h2>{{ i.title }}</h2>
+			  <p>13 Nov ,2019 [09.00am - 04.00pm]</p>
+			</a>
+  
+			
+
+		{% endfor %}
+		  </nav>
+
+			{% comment %} make first link actve using js {% endcomment %}
+  
+		  	<div class="tab-content" id="myTabContent">
+				
+				{% for a in schedule %}
+					<div class="tab-pane fade show" id="schedule{{ forloop.counter0 }}" role="tabpanel" aria-labelledby="home-tab">
+
+						<ul class="mt-5 time-table pl-0 list-unstyled">
+							{%  if not a %}
+<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+									<div class="content">
+										<h3 class="mb-3">No schedule for this day</h3>
+									</div>
+									<div class="content-img text-md-right">
+										<img src="images/about/wordpress.png" alt="" class="img-fluid">
+									</div>
+								</li>
+								
+							{% else %}
+
+								{% for b in a %}
+
+										<li class="d-md-flex align-items-center justify-content-between bg-light p-4 mb-3">
+										<h4 class="time text-color">9.00am</h4>
+										<div class="content">
+											<h3 class="mb-3">{{ b.title }}</h3>
+											<span class="h6 ">By Risabh moinul</span>
+											<p>CEo of themefisher</p>
+										</div>
+										<div class="content-img text-md-right">
+											<img src="images/about/wordpress.png" alt="" class="img-fluid">
+										</div>
+										</li>
+
+								{% endfor %}
+
+
+							{% endif %}
+
+			
+						</ul>
+					
+					</div>
+
+				{% endfor %}
+				
+		  	</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+  
+
+<section class="section bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8">
+				<div class="mb-5">
+					<h2>Professional Skills</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-document"></i>
+					<h4 class="mb-3">Course Correction</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5">
+					<i class="tf-ion-android-desktop"></i>
+					<h4 class="mb-3">Execute the Decision</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 ">
+					<i class="tf-ion-android-bulb"></i>
+					<h4 class="mb-3">Planning the Moves</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5">
+					<i class="tf-ion-android-document"></i>
+					<h4 class="mb-3">Analyze the Results</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-desktop"></i>
+					<h4 class="mb-3">Execute the Decision</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="skill-item mb-5 mb-lg-0">
+					<i class="tf-ion-android-bulb"></i>
+					<h4 class="mb-3">Planning the Moves</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi hendrerit elit turpis, a porttitor tellus
+						sollicitudin at.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+</body>
+
+{% endblock %}

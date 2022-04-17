@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block title %}MANAGE YOUR ACCOUNT{% endblock %}
+{% block styles %}
+<style>
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link {
+        border: none;
+        transition: none;
+        /* border-bottom: 2px solid #333; */
+    }
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        border: none;
+        border-bottom: 2px solid #20c997;
+    }
+
+    .card-img {
+        height: 150px;
+        background: #ccc;
+    }
+
+    .nav {
+        border-right: 1px solid #ccc;
+    }
+    .nav-pills .nav-link.active {
+        background: #333;
+    }
+   
+    .events li {
+        display: flex;
+    }
+
+    .events time {
+        position: relative;
+        color: #ccc;
+        padding: 0 1.5em;
+    }
+
+    .events time::after {
+        content: "";
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        top: 0;
+        transform: translateX(50%);
+        border-radius: 50%;
+        background: #fff;
+        border: 1px #ccc solid;
+        width: 1.5em;
+        height: 1.5em;
+    }
+
+    .events time.completed::after {
+        background: green;
+    }
+
+    .events span {
+        padding: 0 1.5em 1.5em 2em;
+        position: relative;
+    }
+
+    .events span::before {
+        content: "";
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        height: 100%;
+        border-left: 2px #ccc dashed;
+    }
+
+    .events span.completed::before {
+        border-left: 2px green solid;
+    }
+
+    .events strong {
+        display: block;
+        font-weight: bolder;
+    }
+
+    .events {
+        margin: 1em;
+        width: 50%;
+    }
+
+    .events,
+    .events *::before,
+    .events *::after {
+        box-sizing: border-box;
+        font-family: arial;
+    }
+
+
+
+@media (max-width:480px)   {
+   .nav-link{
+
+        width: fit-content;
+    }
+    
+}
+
+
+</style>
+{% endblock %}
+{% block content %}<br><br><br><br><br>
+<div class="container">
+    <div class="row pt-4">
+        <div class="nav col-3 flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-accounts-tab" data-toggle="pill" href="#v-pills-accounts" role="tab"
+                aria-controls="v-pills-accounts" aria-selected="true">My Acoount</a>
+            <a class="nav-link" id="v-pills-myorders-tab" data-toggle="pill" href="#v-pills-myorders" role="tab"
+                aria-controls="v-pills-myorders" onclick="window.location.replace('http://127.0.0.1:8000/accounts/myorders');" aria-selected="true">My Orders</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                aria-controls="v-pills-messages" onclick="window.location.replace('http://127.0.0.1:8000/accounts/myaddress');" aria-selected="false">Manange Address</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                aria-controls="v-pills-settings" aria-selected="false">Logout</a>
+        </div>
+        <div class="tab-content col-9" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+               
+
+               <div class="form__coupon">
+							
+							<div class="customer_details">
+
+                                <form action="{% url 'change_password' %}" method="post">
+                                {% csrf_token %}
+								<div class="customar__field">
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable> Mobile Number</lable>
+											<input type="text" id="1"  name="name" placeholder="" value="8237377298" readonly>
+										</div>
+										<div class="input_box col-6">
+                                            <lable>Name</lable>
+											<input type="text" id="2" name="mobilenumber" value = "pratik gosavi" readonly>
+										</div>
+									</div>
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Email</lable>
+											<input type="text" id="3" name="pincode" placeholder="Pincode" value = "pratikgosavi654@gmail.com" readonly>
+										</div>
+										<div class="input_box col-6">
+                                             <lable>Location</lable>
+											<input type="text" value="Akola" readonly>
+										</div>
+									</div>
+
+								
+
+									<div class="row">
+										<div class="input_box col-6">
+                                            <lable>Birthdate</lable>
+											<input type="text" id="4" name="pincode" placeholder="Pincode" value = "19-8-2000" readonly>
+										</div>
+										<div class="input_box col-6">
+                                             <lable>Alternate mobile</lable>
+											<input type="text" id="5" value="8830265487" readonly>
+										</div>
+									</div>
+
+                                    <input type="button" id="edit" style="background: #e59285 none repeat scroll 0 0;border-radius: 0;color: #fff;margin-left: 6px;display: inline;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;" onclick="editonly();" value="Edit">
+
+                                    <div class="Click-here" style="float:right;">Chnage Password</div>        
+                                    <div class="custom-model-main">
+                                        <div class="custom-model-inner">        
+                                        <div class="close-btn">×</div>
+                                            <div class="custom-model-wrap">
+                                                <div class="pop-up-content-wrap">
+
+                                                    <div class="row1">
+                                                        <div style="float:left;display:grid;">
+                                                            <label> Current password </label>
+                                                            <label> New password </label>
+                                                            <label> Confirm password </label>
+                                                        </div>
+                                                        <div style="float:left;display:grid;">
+
+                                                            <input type="text" style="margin-left:20px;margin-bottom:10px;"  name="password">
+                                                            <input type="text" style="margin-left:20px;margin-bottom:10px;" name="password1">
+                                                            <input type="text" style="margin-left:20px;margin-bottom:10px;" name="password2">
+                                                        </div>
+                                                        
+
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                        </div>  
+                                    </div> 
+									
+
+                                    <input type="submit" id="submit" style="background: #e59285 none repeat scroll 0 0;border-radius: 0;color: #fff;margin-left: 6px;display: none;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;" value="Submit">
+                                    <input type="button" id="cancle" style="background: #e59285 none repeat scroll 0 0;border-radius: 0;color: #fff;margin-left: 6px;display: none;font-size: 12px;font-weight: 700;line-height: 34px;padding: 2px 20px 0;text-transform: uppercase;transition: all 0.4s ease 0s;border: 0 none;" onclick="readonly();" value="Cancle">
+
+								</div>
+                                </form>
+
+							</div>
+
+						</div>
+               
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
