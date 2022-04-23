@@ -683,7 +683,7 @@ def generate_gr(request, event_id):
     url = reverse('event_details', kwargs={'event_id':event_id})
     Event.objects.get(id = event_id)
     
-    Url = str(domain) + str(url) + '/' + str(event_id)
+    Url = str(domain) + str(url)
     print(Url)
     QrCode.objects.create(url=Url)
 
