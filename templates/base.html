@@ -59,7 +59,7 @@
  		<div class="container">
  			<!--      LOGO BAR     -->
  			<a class="navbar-brand" href="{% url 'index' %}">
- 				<img src="images/logo.png" alt="meetub" class="img-fluid logo-b ">
+ 				<img src="{% static 'images/logo.png' %}" alt="meetub" class="img-fluid logo-b ">
  			</a>
 
  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -115,15 +115,17 @@
  						<a class="nav-link" href="contact.html">Contact</a>
  					</li>
  				</ul>
-				 
+				 <div style="display:flex">
 				{% if user.is_authenticated %}
 					<p style="display: contents;font-size: 14px;"> welcome </p><br>
 					<p style="display: contents;font-size: 14px; "> {{ request.user }} </p>
+					<a style="margin-left:15px;" href="{% url 'logout' %}" class="btn btn-secondary btn-rounded mt-3 mt-lg-0">Logout</a>
+
 				{% else %}
  					<a href="{% url 'student_login_view' %}" class="btn btn-secondary btn-rounded mt-3 mt-lg-0">Login/register</a>
 				{% endif %}
 
-				
+				</div>
  			</div>
  		</div>
  	</nav>

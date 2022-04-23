@@ -17,65 +17,49 @@
 </head>
 
 <div class="col-12">
-<<<<<<< HEAD
-    <div class="container" style="margin-left:20px;margin-right:20px;">
-=======
-    <div class="" style="margin-left:20px;">
->>>>>>> 15844fe0b4214ae8650cf23056e4dde0647fe291
+    <div class="container">
         <div style="display: flex;justify-content: center;">
             <h4>show events page</h4>
         </div><hr><br>
         <div class="col-12" style="display: flex;justify-content: center;" >
             <a href="{% url 'add_event' %}"><button type="button" style="margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;" class="btn">Add Event +</button></a>
-<<<<<<< HEAD
         </div>
         
-        <div class="get-quote">
+        <div class="get-quote col-12">
             {% for i in data %}
             
                 <div class="row">
-                    <div class="col-sm-10 col-12">
-                        <h3 id="quote" style="font-weight: initial;font-size: 1.3rem;">{{ i.name }}</h3>
-                    </div>
-                    <div class="col-sm-2 col-12" style="display: flex;">
-                        <a href="{% url 'view_event' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-primary">View</button></a>
-                        <a href="{% url 'update_event' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-primary">Update</button></a>
-                        <a href="{% url 'show_days' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Days details</button></a>
-                        <a href="{% url 'delete_event' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-danger">Delete</button></a>
-                    </div>
-                </div>
-=======
-            <a href="{% url 'add_feedback_questions' %}"><button type="button" style="margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;" class="btn">Feeback question +</button></a>
-        </div>
-        <br>
-            {% for i in data %}
-            
-                    <div class="col-12" style="display: flex;justify-content: right;">
-                        <div class="col-4" style="margin: auto auto;">
+                    <div class="col-12" style="display: flex;">
+                        <div class="col-6" style="display: flex;">
                             <h3 id="quote" style="font-weight: initial;font-size: 1.3rem;">{{ i.name }}</h3>
                         </div>
-                        <div class="col-8" style="display: flex;margin-right: -146px;">
-                            <a href="{% url 'view_event' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-primary">View</button></a>
-                            <a href="{% url 'update_event' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-primary">Update</button></a>
-                            <a href="{% url 'show_days' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Days details</button></a>
-                            <a href="{% url 'delete_event' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-danger">Delete</button></a>
+                        
+                        <div class="col-6" style="display: flex;justify-content: end;">
+                            
+                                <a href="{% url 'show_days' i.id %}"><button type="button" style="margin-right: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Days details</button></a>
+                                <a href="{% url 'generate_gr' i.id %}"><button type="button" style="margin-right: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Generate QR</button></a>
+                                <a href="{% url 'add_feedback_questions' i.id %}"><button type="button" style="margin-right: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Add Feedback</button></a>
+
+                            <div class="dropdown">
+                                <a style="padding: 14px;background: grey;border: none;" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>&#8942;</span>
+                                </a>
+                              
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="{% url 'update_event' i.id %}">Update </a>
+                                    <a class="dropdown-item" href="{% url 'delete_event' i.id %}">Delete</a>
+                                </div>
+                            </div>
+                        
                         </div>
                     </div>
->>>>>>> 15844fe0b4214ae8650cf23056e4dde0647fe291
+                </div>
                 <hr>
         
             {% endfor %}
     
-<<<<<<< HEAD
         </div>
     </div>
 </div>
-
-{{ data.as_p }}
-=======
-    </div>
-</div>
-
->>>>>>> 15844fe0b4214ae8650cf23056e4dde0647fe291
 
 {% endblock %}

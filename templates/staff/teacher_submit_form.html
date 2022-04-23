@@ -4,6 +4,27 @@
 {% block content %}
 
 <head>
+
+    <style>
+
+        .editor {
+            min-height: 800px;
+            width: 100%;
+            border: 1px solid black;
+            border-color: #e8e8e8;
+        }
+        
+        .editor-commands {
+            -moz-column-count: 3;
+            -moz-column-gap: 20px;
+            -webkit-column-count: 3;
+            -webkit-column-gap: 20px;
+            column-count: 3;
+            column-gap: 20px;
+        }
+
+
+    </style>
     
 </head>
 
@@ -23,7 +44,35 @@
     
 
     <label>  Description </label><br>
-    <textarea  rows="30" cols="100" name="describe"> </textarea>
+    
+<div class="editor-commands">
+    <ul>
+        <li><a data-command="undo">Undo</a></li>
+        <li><a data-command="redo">Redo</a></li>
+        <li><a data-command="insertHorizontalRule">hr</a></li>
+        <li><a data-command="bold">Bold</a></li>
+        <li><a data-command="italic">Italic</a></li>
+        <li><a data-command="underline">Underline</a></li>
+        <li><a data-command="strikeThrough">strikeThrough</a></li>
+        <li><a data-command="justifyLeft">justifyLeft</a></li>
+        <li><a data-command="justifyCenter">justifyCenter</a></li>
+        <li><a data-command="justifyRight">justifyRight</a></li>
+        <li><a data-command="justifyFull">justifyFull</a></li>
+        <li><a data-command="indent">indent</a></li>
+        <li><a data-command="outdent">outdent</a></li>
+        <li><a data-command="insertUnorderedList">insertUnorderedList</a></li>
+        <li><a data-command="insertOrderedList">insertOrderedList</a></li>
+        <li><a data-command="html" data-command-argument="h1">h1</a></li>
+        <li><a data-command="html" data-command-argument="h2">h2</a></li>
+        <li><a data-command="html" data-command-argument="h3">h3</a></li>
+        <li><a data-command="html" data-command-argument="p">p</a></li>
+        <li><a data-command="subscript">subscript</a></li>
+        <li><a data-command="superscript">superscript</a></li>
+    </ul>
+</div>
+<div id="Editor" class="editor" name="describe" contenteditable="true"></div>
+
+<div id="Preview"></div>
     <hr>
 
 
@@ -38,7 +87,7 @@
     <label>  Date </label>
         <input type="datetime-local" name="date" id="birthdaytime" class="form-control get_timedate" style="background: white;"  name="birthdaytime">
 <br><br>
-        <input class="form-control" type="submit" style="width:100px" value="submit">
+        <input class="form-control" type="button" onclick="ajax_su()" style="width:100px" value="submit">
 <br>
         </div>
         </div>
@@ -48,6 +97,73 @@
 </body>
 
 <script>
+
+    var commandButtons = document.querySelectorAll(".editor-commands a");
+for (var i = 0; i < commandButtons.length; i++) {
+    commandButtons[i].addEventListener("mousedown", function (e) {
+        e.preventDefault();
+
+        var commandName = e.target.getAttribute("data-command");
+        if (commandName === "html") {
+            var commandArgument = e.target.getAttribute("data-command-argument");
+            document.execCommand('formatBlock', false, commandArgument);
+        } else {
+            document.execCommand(commandName, false);
+        }
+    });
+}
+
+
+document.getElementById("PreviewButton").addEventListener("click", function(e) {
+    e.preventDefault();
+    document.getElementById("Preview").innerText = document.getElementById("Editor").innerHTML;
+});
+
+
+
+function ajax_su(){
+
+
+
+    title = document.getElementById('title')
+    var MyDiv2 = document.getElementById('Editor');
+    alert(MyDiv2)
+    console.log(MyDiv2)
+    description = MyDiv2.innerHTML
+    console.log(description)
+    name = document.getElementById('name')
+    department = document.getElementById('department')
+    collage = document.getElementById('collage')
+    date = document.getElementById('date')
+
+    let form_data = {
+        csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        title: title,
+        describe: description,
+        name: name,
+        department: department,
+        collage : collage,
+        date : date,
+      }
+
+    $.ajax({   
+        cache: false,                    // initialize an AJAX request
+        type: "POST",
+        url: "{% url 'add_form' %}",
+        data: form_data,     // add the country id to the POST parameters
+
+        success: function (data) {   // `data` is from `get_topics_ajax` view function
+            
+            alert('done')
+            
+
+          
+        }
+
+    });
+
+
+}
   
 </script>
 

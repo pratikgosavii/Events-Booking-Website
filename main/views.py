@@ -59,7 +59,7 @@ def event_winners(request):
 
 
 
-def add_feedback_questions(request):
+def add_feedback_questions(request, event_id):
 
     if request.method == "POST":
 
@@ -67,7 +67,7 @@ def add_feedback_questions(request):
 
 
         fe_questions = request.POST.getlist('fe_questions[]')
-        event_id = request.POST.get('event_id')
+        # event_id = request.POST.get('event_id')
 
         print(event_id)
 
@@ -84,56 +84,40 @@ def add_feedback_questions(request):
     else:
 
         form = feedback_questions_Form()
-        event_values = Event.objects.filter(created_by = request.user)
 
-        return render(request, 'staff/event/add_feedback_questions.html', {'form' : form, 'event_values' : event_values})
-
-
-def list_feedback_questions(request):
-
-    print(request.user)
-
-    a = Event.objects.filter(created_by = request.user)
-
-    print(a.count())
-    print('in event')
+        return render(request, 'staff/event/add_feedback_questions.html', {'form' : form, 'event_id' : event_id})
 
 
-    for y in a:
+def list_feedback_questions(request, event_id):
 
-        print('in questions')
-        b = feedback_questions.objects.filter(event = y)
+   
+    a = Event.objects.get(id = event_id)
 
-        print(b.count())
 
-        star = []
+    b = feedback_questions.objects.filter(event = a)
+
+    print(b.count())
+
+    star = []
+    co = 0
+
+    for i in b:
+        
+        fed_data = feedback_answers.objects.filter(feeback_questions = i)
+        print('in questions answeer')
+        print(fed_data.count())
+        for z in fed_data:
+
+            co = co + z.stars
+        if co > 0:
+            star.append(co/len(fed_data))
+        else:
+            star.append('0')
+
         co = 0
 
-        for i in b:
-            
-            fed_data = feedback_answers.objects.filter(feeback_questions = i)
-            print('in questions answeer')
-            print(fed_data.count())
-            for z in fed_data:
 
-                co = co + z.stars
-
-            star.append(co/len(fed_data))
-
-            co = 0
-
-
-      
-
-    print('pritning staar')
-
-    print(star)
-
-
-
-        
-
-    return render(request, 'staff/event/list_feedback_questions.html', {'data' : a})
+    return render(request, 'staff/event/list_feedback_questions.html', {'data' : b, 'event' : a})
 
 
 
@@ -150,7 +134,7 @@ def update_feedback_questions(request, feeback_id):
         instance.fed_questions = data
         instance.save()
 
-        return redirect('list_feedback_questions')
+        return redirect('list_feedback_questions', event_id = instance.event.id)
 
 
     else:
@@ -165,6 +149,8 @@ def update_feedback_questions(request, feeback_id):
 
 def delete_feedback_questions(request, feeback_id):
 
-    feedback_questions.objects.get(id = feeback_id).delete()
+    instance = feedback_questions.objects.get(id = feeback_id)
+    instance_id = instance.event.id
+    instance.delete()
 
-    return redirect(list_feedback_questions)
+    return redirect('list_feedback_questions', event_id = instance_id )

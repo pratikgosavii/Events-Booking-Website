@@ -28,6 +28,9 @@ def student_login_view(request):
             if user is not None:
                 print('3')
                 login(request, user)
+                if user.is_superuser:
+                    print('yessss')
+                    return HttpResponseRedirect(reverse('staff_dashbaord'))
                 return HttpResponseRedirect(reverse('index'))
             else:
                 print("something went wrong1")
@@ -111,3 +114,10 @@ def booking_detail_view(request, booking_id):
 
 
     return render(request, 'accounts/my_event_detail_view.html', {'data':data})
+
+from django.shortcuts import redirect
+def logout(request):
+
+    logout(request)
+
+    return redirect('logout')

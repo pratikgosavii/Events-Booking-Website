@@ -86,18 +86,6 @@
 
               {% csrf_token %}
 
-              <div class="form-group">
-                <select class="form-control" style="width: 203px;" id="event_id">
-                  <option selected>Event</option>
-
-                  {% for i in event_values %}
-                  <option value="{{ i.id }}">{{ i.name }}</option>
-
-                  {% endfor %}
-                 
-                </select>
-              </div>
-              
                 <div id="fooBar">
 
                     <div style="display: block;">
@@ -141,13 +129,11 @@
     document.getElementById("sdgyshd").addEventListener("click", function(event){
       event.preventDefault()
 
-      alert('here')
-
+     
 
         var selchbox = [];
 
         fe_questions = document.getElementsByName('dynamic');
-        event_id = document.getElementById('event_id').value;
         alert('length')
         alert(fe_questions.length)
 
@@ -156,22 +142,21 @@
             selchbox.push(fe_questions[i].value);
         }
 
-        alert(event_id)
-        alert(selchbox)
         
         $.ajax({
             cache: false, // initialize an AJAX request
             type: "POST",
-            url: "{% url 'add_feedback_questions' %}",
+            url: "{% url 'add_feedback_questions' event_id  %}",
             data: {
                 csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
                 fe_questions: selchbox, // add the country id to the POST parameters
-                event_id: event_id, // add the country id to the POST parameters
         },
 
         success: function (data) {
+          
+          let a = ""
 
-            alert('done')
+          window.location = ("{% url 'list_feedback_questions' event_id  %}")
         },
         });
       });

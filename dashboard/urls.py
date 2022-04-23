@@ -38,6 +38,8 @@ urlpatterns = [
     path('staff/event/day-schedule-update/<day_schedule_id>', update_day_schedule, name='day_schedule_update'),
     path('staff/event/day-schedule-delete/<day_schedule_id>', day_schedule_delete, name='day_schedule_delete'),
 
+    path('staff/event/generate_qr/<event_id>', generate_gr, name='generate_gr'),
+
     
     #seminars urls
     path('staff/show-seminars/', show_seminars, name='ds'),

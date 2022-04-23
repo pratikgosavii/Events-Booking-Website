@@ -65,22 +65,27 @@ def show_event(request):
 
 def numOfDays(date1, date2):
 
+
+    print('from here')
+    print(date1, date2)
+
     dt1 = date1.split('T')
 
     dt1 = dt1[0]
 
     print(dt1)
-    time = dt1[1]
-    print(time)
-    time1 = time.split(':')
-    print(time1)
-    dt1 = dt1[0]
 
     
 
 
     dt2 = date2.split('T')
     dt2 = dt2[0]
+
+    print(dt2)
+
+
+
+    print(dt2)
 
     d1 = dt1.split('-')
     d2 = dt2.split('-')
@@ -127,12 +132,12 @@ def add_event(request):
 
         dt2 = request.POST.get('end_date')
 
-        numOfDays(dt1, dt2)
+        
 
         start_date = format_fDate(dt1)
         end_date = format_fDate(dt2)
 
-        print('-------------------------')
+        print('----------here---------------')
         print(start_date)
         print(end_date)
 
@@ -507,7 +512,6 @@ def update_day(request, day_id=None):
 
         dt2 = request.POST.get('end_date')
 
-        numOfDays(dt1, dt2)
 
         start_date = format_fDate(dt1)
         end_date = format_fDate(dt2)
@@ -667,6 +671,24 @@ def day_schedule_delete(request, day_schedule_id):
 
         # reverse (show day schedule)
         pass
+
+
+from django.shortcuts import render
+from .models import QrCode
+# Create your views here.
+def generate_gr(request, event_id):
+
+    domain = (request.META['HTTP_HOST'])
+   
+    url = reverse('event_details', kwargs={'event_id':event_id})
+    Event.objects.get(id = event_id)
+    
+    Url = str(domain) + str(url) + '/' + str(event_id)
+    print(Url)
+    QrCode.objects.create(url=Url)
+
+    qr_code=QrCode.objects.all().last()
+    return render(request,"generated_qr.html",{'qr_code':qr_code})
 
 
 def show_seminars(request):

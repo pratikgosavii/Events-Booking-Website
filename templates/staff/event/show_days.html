@@ -79,28 +79,38 @@
 </div>
 </a>
 
-<div class="col-12">
-   <div class="container" style="margin-left:20px;margin-right:20px;">
-            <div style="display: flex;justify-content: center;">
-              <h4> Events Days</h4>
-            </div><hr><br>
-            <div class="col-12" style="display: flex;justify-content: center;" >
-                <a href="{% url 'add_day' event_id  %}"><button type="button" style="margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;" class="btn">Add day +</button></a>
+  <div class="col-12">
+    <div class="container">
+      <div style="display: flex;justify-content: center;">
+        <h4> Events Days</h4>
+      </div><hr><br>
+      <div class="col-12" style="display: flex;justify-content: center;" >
+          <a href="{% url 'add_day' event_id  %}"><button type="button" style="margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;" class="btn">Add day +</button></a>
+      </div>
+      <br>
+
+      <div class="get-quote col-12">
+
+        {% for i in data %}
+          <div class="row">
+            <div class="col-12" style="display: flex;justify-content: right;">
+              <div class="col-6" style="display: flex;">
+                
+                <h3 id="quote" style="font-weight: initial;font-size: 1.3rem;">{{ i.title }}</h3>
+              </div>
+                
+              <div class="col-6" style="justify-content: end;display: flex;">
+                <a href="{% url 'update_day' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Add details</button></a>
+                
+              </div>
             </div>
-            <br>
-              {% for i in data %}
-              
-                      <div class="col-12" style="display: flex;justify-content: right;">
-                          <h3 id="quote" style="font-weight: initial;font-size: 1.3rem;">{{ i.title }}</h3>
-                      </div>
-                      <div class="col-8">
-                          <a href="{% url 'update_day' i.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-info">Add details</button></a>
-                      </div>
-                  <hr>
-          
-              {% endfor %}
+          </div>
+            <hr>
+    
+        {% endfor %}
+      </div>
       
-          <a href="{% url 'delete_day' event_id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-danger">Delete day</button></a>
+      <a href="{% url 'delete_day' event_id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;" class="btn btn-outline-danger">Delete day</button></a>
 
    </div>
 </div>
