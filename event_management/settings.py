@@ -138,6 +138,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
+RAZOR_PAY_API_KEY = 'rzp_test_EiqfWr1Y956tsk'
+RAZOR_PAY_KEY_SECRET = 'bMZgJ0EAeCjAlY1WMFSUUs1K'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

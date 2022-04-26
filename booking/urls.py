@@ -10,6 +10,7 @@ urlpatterns = [
     #urls for parents/student
     path('event/', booking_event, name='booking_event'),
     
+    path('complete-payment/<booking_id>', complete_payment, name='complete_payment'),
     path('track-event-booking/<booking_id>', track_event_booking, name='track_event_booking'),
 
     path('feedback-event/<event_id>', feedback_event, name='feedback_event'),

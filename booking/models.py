@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from event_management.settings import RAZOR_PAY_API_KEY
 from main.models import *
 
 from django.conf import settings
@@ -25,6 +26,11 @@ class event_ticket_booking(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='addsdgffgvgb')
     participants = models.CharField(max_length=255)
     payment_status = models.CharField(max_length=11, choices=payment_status_choices, default=UNKNWON_TYPE)
+    payment_status =  models.CharField(max_length=11, choices=payment_status_choices, default=UNKNWON_TYPE)
+    razorpay_order_id = models.CharField(max_length= 500)
+    razorpay_payment_id = models.CharField(max_length = 500)
+    razorpay_signature = models.CharField(max_length = 500)
+
 
 
 class seminar_ticket_booking(models.Model):
