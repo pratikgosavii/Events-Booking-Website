@@ -12,11 +12,11 @@ User = settings.AUTH_USER_MODEL
 
 UNKNWON_TYPE = 'UN'
 payment_status_choices = [
-        ('Pending', 'Pending'),
-        ('Failed', 'Failed'),
-        ('Processing', 'Processing'),
-        ('Refunded', 'Refunded'),
-        ('Done', 'Done'),
+        (1, 'Pending'),
+        (2, 'Failed'),
+        (3, 'Processing'),
+        (4, 'Refunded'),
+        (5, 'Done'),
         
     ]
 
@@ -26,7 +26,6 @@ class event_ticket_booking(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='addsdgffgvgb')
     participants = models.CharField(max_length=255)
     payment_status = models.CharField(max_length=11, choices=payment_status_choices, default=UNKNWON_TYPE)
-    payment_status =  models.CharField(max_length=11, choices=payment_status_choices, default=UNKNWON_TYPE)
     razorpay_order_id = models.CharField(max_length= 500)
     razorpay_payment_id = models.CharField(max_length = 500)
     razorpay_signature = models.CharField(max_length = 500)

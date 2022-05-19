@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from main.models import *
 from main.forms import *
+
 import numpy as np
 from datetime import datetime
 from django.http import HttpResponseRedirect
@@ -421,22 +422,18 @@ def update_event_winner(request, event_id=None):
 
         return render(request, 'staff/event/update_event.html', {'form':form, 'event_id':event_id, 'update':True})
 
+from django.shortcuts import redirect, render
 
 def delete_event_winner(request, event_id):
     
-    instance = Event.objects.get(id = event_id).delete()
-    if instance:
-        
-        data = Event.objects.filter(created_by = request.user)
-        
-        return render(request, 'staff/event/show_events.html', {'data':data})
+    try:
+        Event_Prices.objects.get(id = event_id).delete()
 
-    else:
-        print('something went wrong')
-        data = Event.objects.filter(created_by = request.user)
+    except Event_Prices.DoesNotExist:
 
-        return render(request, 'staff/event/add_event.html', {'data':data})
-
+        return redirect('show_event_winner')
+    return redirect('show_event_winner')
+    
 
 def show_event_winner(request):
 

@@ -22,6 +22,11 @@
             <h4>Event Name {{ event.name }}</h4>
         </div><hr><br>
 
+        <div class="col-12" style="display: flex;justify-content: center;" >
+            <a href="{% url 'add_feedback_questions' event.id %}"><button type="button" style="margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;" class="btn">Add Feedback Question +</button></a>
+        </div>
+        
+
        
         <br>
             {% for i in data %}

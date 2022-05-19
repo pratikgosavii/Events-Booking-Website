@@ -19,7 +19,7 @@ urlpatterns = [
     path('staff/show-event-winner/', show_event_winner, name='show_event_winner'),
     path('staff/add-event-winner/', add_event_winner, name='add_event_winner'),
     path('staff/update-event-winner/<event_id>', update_event_winner, name='update_event_winner'),
-    path('staff/delete-event-winner/<event_id>', delete_event_winner, name='delete_event_winner'),
+    path('staff/delete-event-winner/<_id>', delete_event_winner, name='delete_event_winner'),
 
     
     

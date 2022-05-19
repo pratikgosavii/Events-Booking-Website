@@ -73,6 +73,8 @@ def student_signup_view(request):
                     print('2')
 
                     account1 = User.objects.create_user(email=email, password=password1)
+                    print(account1)
+                    print(account1.password)
                     account1.save()
                     if account1:
                         return HttpResponseRedirect(reverse('student_login_view'))

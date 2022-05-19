@@ -7,6 +7,7 @@ var options = {
     "amount": "{{ amount }}",
     callback_url: "{% url 'complete_payment' booking_id  %}",
     redirect: true,
+    'order_id' : "{{ order_id }}",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
     "handler": function (response){

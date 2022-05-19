@@ -182,26 +182,33 @@ def complete_payment(request, booking_id):
         # order_id = request.POST.get('razorpay_order_id','')
         # signature = request.POST.get('razorpay_signature')
 
-        # print(request.POST)
-        # print('signature')
-        # print(signature)
+
+
+
+        payment_id = request.POST.get('razorpay_payment_id', '')
+        order_id = request.POST.get('razorpay_order_id','')
+        signature = request.POST.get('razorpay_signature')
+
         params_dict = { 
-        # 'razorpay_order_id': order_id, 
-        'razorpay_payment_id': payment_id,
-        # 'razorpay_signature': signature
+            'razorpay_order_id': order_id, 
+            'razorpay_payment_id': payment_id,
+            'razorpay_signature': signature
         }
+        
+        result = client.utility.verify_payment_signature(params_dict)
 
-        # result = client.utility.verify_payment_signature(params_dict)
-        if payment_id!=None:
+        print('result')
+        print(result)
+        
+        if payment_id!=None and result == True:
 
-            client.payment.capture(payment_id, amount)
-            booking_instance.status = 1
+            booking_instance.payment_status = 5
             booking_instance.razorpay_order_id = 'order_id'
             booking_instance.razorpay_payment_id = payment_id
             booking_instance.razorpay_signature = 'signature'
             booking_instance.save()
 
-            return redirect('booking_detail_view', booking_id)
+            return redirect('my_bookings')
 
 
     else:
@@ -219,9 +226,16 @@ def complete_payment(request, booking_id):
 
         }
 
-        payment_order = client.order.create(data = data)
+        if booking_instance.payment_status == 5:
+
+            print('payment is alredy done')
+        
+        else:
+
+            payment_order = client.order.create(data = data)
 
         payment_order_id = payment_order['id']
+        print(payment_order_id)
 
         context = {
             'amount' : amount, 
