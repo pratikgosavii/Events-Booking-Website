@@ -210,6 +210,13 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="btn-group-vertical ">
+
+                                        {% if dest.payment_status == "5" %}
+                                            <a><button style="background: white;padding: 5px 24px;margin:5px 5px; margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #28a745;border-radius: 7px;">Payment Done</button></a>
+                                        {% else %}
+                                            <a href="{% url 'complete_payment' dest.id %}"><button style="background: white;padding: 5px 24px;margin:5px 5px; margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #28a745;border-radius: 7px;">Complete Payment</button></a>
+                                        {% endif %}
+                                        <a href="{%url 'feedback_event' dest.id %}">  <button  style="background: white;padding: 5px 24px;margin:5px 5px; margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;">Give Feedback</button> </a>
                                         <a href="{%url 'track_event_booking' dest.id %}">  <button  style="background: white;padding: 5px 24px;margin:5px 5px; margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid #4125dd;border-radius: 7px;">Track Event</button> </a>
                                         <a href="{% url 'cancle_event_booking' dest.id %}"> <button style="background: white;padding: 5px 24px;margin:5px 5px; margin: 10px;font-size: 0.7rem;box-shadow:none;font-size: 0.7rem;box-shadow: none;border: 3px solid red;border-radius: 7px;">Cancle Event</button> </a>  
                                     </div>
@@ -376,5 +383,47 @@
     </div>
 </div>
 
- 
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_EiqfWr1Y956tsk", // Enter the Key ID generated from the Dashboard
+    "name": "Acme Corp",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "handler": function (response){
+        console.log(response)
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+
+
 {% endblock %}

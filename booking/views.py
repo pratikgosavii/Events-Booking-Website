@@ -10,6 +10,8 @@ from django.http.response import HttpResponseRedirect
 from .forms import *
 
 
+from event_management.settings import RAZOR_PAY_API_KEY, RAZOR_PAY_KEY_SECRET 
+
 
 
 User = get_user_model()
@@ -157,3 +159,89 @@ def feedback_event(request, event_id):
 
         return render(request, 'accounts/give_feeback.html', context)
 
+
+
+
+import razorpay
+
+client = client = razorpay.Client(auth=(RAZOR_PAY_API_KEY, RAZOR_PAY_KEY_SECRET))
+
+@csrf_exempt
+def complete_payment(request, booking_id):
+
+    print('here')
+
+    booking_instance = event_ticket_booking.objects.get(id = booking_id)
+    amount = booking_instance.event.price
+    print(amount)
+    amount = amount * 100
+
+    if request.method == "POST":
+
+        payment_id = request.POST.get('razorpay_payment_id', '')
+        # order_id = request.POST.get('razorpay_order_id','')
+        # signature = request.POST.get('razorpay_signature')
+
+
+
+
+        payment_id = request.POST.get('razorpay_payment_id', '')
+        order_id = request.POST.get('razorpay_order_id','')
+        signature = request.POST.get('razorpay_signature')
+
+        params_dict = { 
+            'razorpay_order_id': order_id, 
+            'razorpay_payment_id': payment_id,
+            'razorpay_signature': signature
+        }
+        
+        result = client.utility.verify_payment_signature(params_dict)
+
+        print('result')
+        print(result)
+        
+        if payment_id!=None and result == True:
+
+            booking_instance.payment_status = 5
+            booking_instance.razorpay_order_id = 'order_id'
+            booking_instance.razorpay_payment_id = payment_id
+            booking_instance.razorpay_signature = 'signature'
+            booking_instance.save()
+
+            return redirect('my_bookings')
+
+
+    else:
+
+        
+
+        order_currency = 'INR'
+
+
+
+        data = {
+            "amount" : amount,
+            "currency" : order_currency,
+
+
+        }
+
+        if booking_instance.payment_status == 5:
+
+            print('payment is alredy done')
+        
+        else:
+
+            payment_order = client.order.create(data = data)
+
+        payment_order_id = payment_order['id']
+        print(payment_order_id)
+
+        context = {
+            'amount' : amount, 
+            'api_key' : RAZOR_PAY_API_KEY, 
+            'order_id': payment_order_id,
+            'booking_id' : booking_id
+        }
+
+        return render(request, 'accounts/my-account/complete_payment.html', context)
