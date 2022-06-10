@@ -105,7 +105,7 @@
     </style>
 </head>
 <div style="margin-left:50px;">
-  <a href="{% url 'show_event' %}" style="color:#4125dd;"> All Seminar > </a> <a> Add Seminar </a>
+  <a href="{% url 'show_event' %}" style="color:#4125dd;"> All Events > </a> <a> Add Event </a>
 </div>
 <hr>
 
@@ -114,16 +114,16 @@
         
         <div class="input_fields_wrap" style="display: inline-block;">
             <div style="display: flex;justify-content: center;">
-                <h4>Add Seminar page</h4>
+                <h4>Add events page</h4>
             </div><hr><br>
-            <form enctype="multipart/form-data" action="{% url 'add_seminar' %}" method="post">
+            <form enctype="multipart/form-data" action="{% url 'add_event' %}" method="post">
                 {% csrf_token %}
 
             <table>
                 <tr>
                     <td>
                         <input type="text" name="name" id="Sdsd" value="{{ form.name.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Name">
-                        <input type="text" name="price" id="Sdsd" value="{{ form.price.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Price">
+                        <input type="text" name="price" id="Sdsd" value="{{ form.price.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Fee">
                         <input type="text" name="department" id="Sdsd" value="{{ form.department.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Department">
                         <input type="text" name="hod" id="Sdsd" value="{{ form.hod.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="HOD" Required>
                     </td>
@@ -140,7 +140,6 @@
                         <td>
                             <input type="file" class="form-control" name="image"  id="image">
                             <input type="text" name="event_cordinator " id="Sdsd" value="{{ form.event_cordinator.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Event Cordiantor" Required>
-                            <input type="text" name="speaker " id="Sdsd" value="{{ form.speaker.value|default_if_none:'' }}" class="form-control input-group mb-3 get" placeholder="Seminar Speaker" Required>
 
                             
 

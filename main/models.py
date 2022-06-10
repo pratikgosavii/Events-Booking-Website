@@ -69,11 +69,10 @@ class Seminar(models.Model):
     name = models.CharField(max_length=255)
     price = models.IntegerField()
     image = models.ImageField(upload_to="media/", null=False, blank=False)
-    min_participants = models.IntegerField()
-    max_participants = models.IntegerField()
     hod = models.CharField(max_length=255)
     department = models.CharField(max_length=255)
     number_of_days = models.IntegerField()
+    speaker = models.CharField(max_length=500)
 
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
@@ -83,7 +82,7 @@ class Seminar(models.Model):
     description = models.CharField(max_length=555)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sdsd')
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
+    created_at = models.DateTimeField(auto_now=True)
 
 
 

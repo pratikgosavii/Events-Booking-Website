@@ -13,7 +13,7 @@ urlpatterns = [
     path('staff/update-event/<event_id>', update_event, name='update_event'),
     path('staff/delete-event/<event_id>', delete_event, name='delete_event'),
 
-    path('staff/add-form/', add_form, name='add_form'),
+    path('staff/add-form/<event_id>', add_form, name='add_form'),
     path('staff/update-event/<event_id>', update_event, name='wrefefe'),
 
     path('staff/show-event-winner/', show_event_winner, name='show_event_winner'),
@@ -42,7 +42,7 @@ urlpatterns = [
 
     
     #seminars urls
-    path('staff/show-seminars/', show_seminars, name='ds'),
+    path('staff/list-seminars/', show_seminars, name='ds'),
     path('staff/add-seminar/', add_seminars, name='add_seminar'),
     path('staff/details-seminar/<seminar_id>', view_seminar, name='s'),
     path('staff/update-semianr/<seminar_id>', update_seminar, name='sds'),

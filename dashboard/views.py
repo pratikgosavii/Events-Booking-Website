@@ -278,7 +278,7 @@ def delete_event(request, event_id):
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.colors import magenta, red
-from reportlab.platypus import SimpleDocTemplate
+from reportlab.platypus import SimpleDocTemplate, Image, PageBreak
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import A4
@@ -289,10 +289,9 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 import subprocess
 import os
 from django.http import FileResponse, Http404
+from PIL import Image, ImageDraw, ImageFont
 
-
-
-def add_form(request):
+def add_form(request, event_id):
 
     if request.method == 'POST':
 
@@ -303,12 +302,32 @@ def add_form(request):
         department = request.POST.get('department')
         collage = request.POST.get('collage')
         date = request.POST.get('date')
+        image1 = request.FILES['image1']
+        image2 = request.FILES['image2']
+
+        print(image1)
+        print(image2)
+
+
+        description = 'The annuals sports ceremony is organized like a festival in Josef High School. The school authority organized this ceremony. They chose a big ground as a venue. The school has many potential students who were good at sports. The mayor of the city was there as the chief guest. The students were so excited.  A team was organized to manage the whole ceremony. Some Volunteers also started to set up the ground and scoreboard. In sports ceremonies, there are different activities as sports performed by the students. First, an opening ceremony took place as a cultural function. A fantastic stage was prepared for award distribution, speeches, and cultural function. After the cultural function, the names of the participants and games were announced. The school principal delivered a speech about the heritage of sports day in their school. After that, a singing competition started. It was an interesting activity. Now the turn was athletic games such as high jump, long jump, table tennis, and 500 meters racing.  In the end, volleyball, basketball, and football matches were played. All participants were very enthusiastic. At the end of the ceremony, the principal announced the names of the winners. The mayor of the city was the chief guest of the ceremony. He distributed prizes to the winners. A memorable day came to an end, and the participants returned home with great joy. This was an amazing and enjoyable sports ceremony. These types of activities keep the students active, encouraged, and confident. Example 2: Report Writing Example of A science fair As reported by Steve Jobs, December 12, 2020 Last year, an event was organized as a science fair in our school. The students and the teachers both participated in that fair that was held in the main hall of our school. The aim to organize such a fair was just to give knowledge to the students and develop their interest to research further other than they learned from books. Secondly, it aimed to show the progress of the field of science in our country. There were many items displayed at the fair. They were made by the students with the help and guidance of their teachers. All items and models were fascinating. There was a steam engine, space rocket, different charts, skeleton, microscope, and many other wonderful models. The students were excited and confident while telling about their items. People from outside enjoyed that fair most. They encouraged the students and teachers. In the end, the school principal delivered a speech and encouraged the students to organize such events every year. That was an amazing and informative fair for students as well as people who came from outside. These types of fairs are a source to increase knowledge and interest in the field of science.'
+
+
+
+        print('title')
+        print(title)
+        print('description')
+        print(description)
+        print('collage')
+        print(collage)
+        print('date')
+        print(date)
+
 
         
 
    
         def genpdf():
-            doc = SimpleDocTemplate("hello.pdf")
+            doc = SimpleDocTemplate("hello.pdf", topMargin=0.3*inch,)
             parts = []
             txt = description
             PAGE_WIDTH, PAGE_HEIGHT = A4
@@ -321,7 +340,7 @@ def add_form(request):
             style1.leading = 20
             style1.textColor = 'black'
             style1.alignment = TA_CENTER
-            q=Paragraph(title, style1)
+            q=Paragraph('" '+ title + ' "<br/><br/><br/>', style1)
 
             style2 = ParagraphStyle(name='Times New Roman')
             style2.fontSize = 14
@@ -329,20 +348,55 @@ def add_form(request):
             style2.textColor = 'black'
             style2.alignment = TA_LEFT
 
+
+            yourStyle = ParagraphStyle(name='Times New Roman')
+            yourStyle.fontSize = 16
+            yourStyle.leading = 20
+            yourStyle.textColor = 'black'
+            yourStyle.alignment = TA_CENTER
+
+
+            yourStyle1 = ParagraphStyle(name='Times New Roman')
+            yourStyle1.fontSize = 15
+            yourStyle1.leading = 20
+            yourStyle1.textColor = 'black'
+            yourStyle1.alignment = TA_CENTER
+           
+
+
+
+
             txt2 = '<br />\n<br />\n<br />\n<br />\n<br />\n' + 'Details of program cordinator' + '<br />\n' + name + '<br />\n' + department + '<br />\n' + collage + '<br />\n' + date
 
-            print(txt2)
+         
+            
 
-            x = Paragraph(txt2, style2)
+
+          
+            Titile_collage_name = Paragraph('G H Raisoni Collage Of Engineering and Management, Pune<br/>', yourStyle)
+            Titile2_collage_name = Paragraph(str(department + '<br/><br/>'), yourStyle1)
+            x = Paragraph(txt2)
+            parts.append(Titile_collage_name)
+            parts.append(Titile2_collage_name)
             parts.append(q)
             parts.append(p)
             parts.append(x)
+            parts.append(Image(image1))
+            parts.append(Image(image2))
+
             doc.build(parts)
+
+
         genpdf()
 
         return FileResponse(open('hello.pdf', 'rb'), content_type='application/pdf')
     else:
-        return render(request, 'staff/teacher_submit_form.html')
+
+        event_instance = Event.objects.get(id = event_id)
+
+
+
+        return render(request, 'staff/teacher_submit_form.html', {'event_instance' : event_instance})
 
 def add_event_winner(request):
     
@@ -695,37 +749,35 @@ def add_seminars(request):
 
     if request.method == 'POST':
 
-        form  = Seminar_form(request.POST, request.FILES)
-        if form.is_valid():
-            dt1 = request.POST.get('start_date')
-           
-            dt2 = request.POST.get('end_date')
 
-           
-            number_of_days = numOfDays(dt1, dt2)
-            print('--------------------------------------')
-            print(number_of_days)
+        dt1 = request.POST.get('start_date')
+
+        dt2 = request.POST.get('end_date')
+
+        
+
+        start_date = format_fDate(dt1)
+        end_date = format_fDate(dt2)
+
+
+        number_of_days = numOfDays(dt1, dt2)
+
+        
+        updated_request = request.POST.copy()
+        updated_request.update({'start_date': start_date, 'end_date' : end_date, 'number_of_days' :  number_of_days})
+        form = Seminar_form(updated_request, request.FILES)
+
+
+
+
+        if form.is_valid():
+         
 
             instance = form.save(commit=False)
             instance.created_by = request.user
-            instance.number_of_days = number_of_days
-
             instance.save()
-            print('save')
             
 
-            counter_title = 1
-
-            for i in range(instance.number_of_days):
-                title = 'Day ' + str(counter_title)
-                today = datetime.now()
-                d1 = today.strftime("%Y-%m-%d") + 'T'
-                d2=today.strftime("%H:%I")
-                d3 = d1+d2
-                Seminar_Days.objects.create(event = instance, title = title, sub_title = 'NA', start_date = d3, end_date = d3, description = 'NA') 
-                counter_title = counter_title + 1
-
-            data = Seminar_Days.objects.filter(event = instance)
             return render(request, 'staff/seminar/add_days.html', {'data':data, 'event_id':instance.id})
 
         else:

@@ -1,8 +1,9 @@
-{% include 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
-
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 	/* https://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -69,8 +70,32 @@ xpopup
   -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
   -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
   transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  
+}
+
+.cd-popup-second {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(94, 110, 141, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  
 }
 .cd-popup.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-second.is-visible   {
   opacity: 1;
   visibility: visible;
   -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
@@ -197,72 +222,170 @@ xpopup
     right: -10px;
 }
 
+.custom-model-main {
+  text-align: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; /* z-index: 1050; */
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear, z-index 0.15;
+  -o-transition: opacity 0.15s linear, z-index 0.15;
+  transition: opacity 0.15s linear, z-index 0.15;
+  z-index: -1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.model-open {
+  z-index: 99999;
+  opacity: 1;
+  overflow: hidden;
+}
+.custom-model-inner {
+  -webkit-transform: translate(0, -25%);
+  -ms-transform: translate(0, -25%);
+  transform: translate(0, -25%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  -o-transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  display: inline-block;
+  vertical-align: middle;
+  width: 600px;
+  margin: 30px auto;
+  max-width: 97%;
+}
+.custom-model-wrap {
+  display: block;
+  width: 100%;
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+  background-clip: padding-box;
+  outline: 0;
+  text-align: left;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-height: calc(100vh - 70px);
+	overflow-y: auto;
+}
+.model-open .custom-model-inner {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  position: relative;
+  z-index: 999;
+}
+.model-open .bg-overlay {
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+}
+.bg-overlay {
+  background: rgba(0, 0, 0, 0);
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  -webkit-transition: background 0.15s linear;
+  -o-transition: background 0.15s linear;
+  transition: background 0.15s linear;
+}
+.close-btn {
+  position: absolute;
+  right: 0;
+  top: -30px;
+  cursor: pointer;
+  z-index: 99;
+  font-size: 30px;
+  color: #fff;
+}
+
+@media screen and (min-width:800px){
+	.custom-model-main:before {
+	  content: "";
+	  display: inline-block;
+	  height: auto;
+	  vertical-align: middle;
+	  margin-right: -0px;
+	  height: 100%;
+	}
+}
+@media screen and (max-width:799px){
+  .custom-model-inner{margin-top: 45px;}
+}
+
+
 
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<section class="page-header">
-    <div class="overly"></div>  
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="content text-center">
-                    <h1 class="mb-3 text-white text-capitalize letter-spacing">Events</h1>
-                    <div class="divider mx-auto mb-4 bg-white"></div>
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</head>
+<div id="popup_second" class="custom-model-main">
+  <div class="custom-model-inner">        
+  <div class="close-btn">×</div>
+      <div class="custom-model-wrap">
+          <div class="pop-up-content-wrap" id="enter_value">
+            You have make changes in event date so you have to modify days details
+          </div>
+      </div>  
+  </div>  
+  <div class="bg-overlay"></div>
+</div> 
+
 
 
 <section class="section-speaker section">
 	<div class="container">
-		<!-- <div class="row section-heading">
-			<div class="col-lg-6">
-				<div class="heading">
-					<span class="stroke-text">Speakers</span>
-					<div class="pl-90">
-						<h2 class=""> Who're speaking</h2>
-						<p>Accusantium provident suscipit dicta magni dolor deserunt nam obcaecati non veritatis optio.</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<div class="pop_container" id="pop_container">
-      <button onclick="pop_hidden()" id = "x">
-          X
-      </button>
-    Text Text Text
-    Text Text Text
-    Text Text Text
-    </div>
-    
-
+  
 		<div class="row">
 
 			{% for i in data %}
-			<div class="col-lg-4 col-sm-6">
-				<div class="speaker-block mb-5">
-					<div class="img-block">
-						<img src="{{ i.image.url }}" alt="" class="img-fluid">
-						<ul class="list-inline speaker-social">
-							<li class="list-inline-item"><a href="#0" name="event_counter{{ forloop.counter }}" value="{{ i.id }}" class="cd-popup-trigger12">Register</a></li>
-							
-						</ul>
-					</div>
+      
+      <div class="col-lg-4 col-sm-6">
+        <div class="speaker-block mb-5">
+            <ul class="" style="display: inline;">
+              <li style="float: left;" class="list-inline-item"><a href="#0" style="background: #4125dd;color: white;padding: 10px;">{{ i.price }} ₹ </a></li>
+            </ul>
+          <div class="img-block">
 
-					<div class="speaker-info">
-						
-						<div style="display: inline-block;"> <h4 class="mb-0 mt-3"><a href="speaker-single.html">{{ i.name }}</a></h4>  </div>
-						<div style="display: initial;margin-left: 34px;"> {{ i.price }} ₹ </div> 
-						<div style="display: initial;margin-left: 34px;"> By ({{ i.guest_name }}) </div>
-						
-					</div>
-				</div>
-			</div>
+            
+            <img src="{{ i.image.url }}" alt="" class="img-fluid" width= "330px" max-height = "330px" height = "330px">
+            <ul class="list-inline speaker-social">
+              <li class="list-inline-item"><a href="{% url 'event_details' i.id %}" style="cursor: pointer;margin-bottom:10px;">More info</a></li>
+              <li class="list-inline-item"><a  name="event_counter{{ forloop.counter }}" value="{{ i.id }}" class="cd-popup-trigger12">Register</a></li>
+            
+            </ul>
+            
+          </div>
 
+          <div class="speaker-info">
+            
+            <div style="display: inline-block;"> <h4 class="mb-0 mt-3"><a href="speaker-single.html">{{ i.name }}</a></h4>  </div>
+            <div style="display: initial;margin-left: 34px;"> </div> 
+            <div style="display: initial;margin-left: 34px;"> Speaker : {{ i.speaker }} </div>
+            
+          </div>
+        </div>
+      </div>
+     
 			{% endfor %}
 			
 		</div>
@@ -320,17 +443,19 @@ xpopup
           <input type="hidden" value="" id="event_id">
            
           
+          <button style="width: 59px; height: 50px;float:right;border: none;" class="add_field_button">Add</button>
     
         </div>
         <div class="col-md-4"></div>
       </div>
       <ul style="display: contents;" class="cd-buttons">
-        <li><a style="cursor: pointer;" href="#0" onclick="return geet()" >Submit</a></li>
+        <li><a style="cursor: pointer;" href="#0" onclick="geet()" >Submit</a></li>
         <li><a style="cursor: pointer;position: initial; top: 0px;right: 0px;width: auto; height: auto;" class="cd-popup-close img-replace" href="#0">Cancle</a></li>
       </ul>
   
 	</div> <!-- cd-popup-container -->
 </div> <!-- cd-popup -->
+
 
 <script>
 	jQuery(document).ready(function($){
@@ -347,6 +472,14 @@ xpopup
 		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
 			event.preventDefault();
 			$(this).removeClass('is-visible');
+		}
+	});
+
+//close for secodn popup
+	$('.cd-popup-second').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+			event.preventDefault();
+			$(this).css('visibility', 'hidden');
 		}
 	});
 	//close popup when clicking the esc keyboard button
@@ -403,17 +536,17 @@ xhr.send('name='+result+'&'+'event_id='+event_id);
 xhr.addEventListener("readystatechange", function(temp) {
         if(this.readyState === 4) {
             console.log(this.responseText);
-            if(this.responseText=="done"){
-                
-              document.getElementById("pop_container").style.visibility = "unset";
-              alert(temp)
-            }
-            else if(this.responseText=="Please Verify Your Email to Get Login"){
-                alert("Please Verify Your Email to Login")
+            if(this.responseText=="something went wrong"){
+              var element = document.getElementById("popup_second");
+              element.classList.add("model-open"); 
+              document.getElementById('enter_value').innerHTML = 'Event book successfully';
             }
             else{
-                alert("Error in Login");
+              var element = document.getElementById("popup_second");
+              element.classList.add("model-open"); 
+              document.getElementById('enter_value').innerHTML = this.responseText;
             }
+           
         }
         });
 
@@ -422,6 +555,14 @@ xhr.addEventListener("readystatechange", function(temp) {
 function pop_hidden(){
   document.getElementById("pop_container").style.visibility = "hidden";
 }
+
+
+
+$(".close-btn, .bg-overlay").click(function(){
+  $(".custom-model-main").removeClass('model-open');
+});
+
+
 
 </script>
 

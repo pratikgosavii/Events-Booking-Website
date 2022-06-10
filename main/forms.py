@@ -62,7 +62,7 @@ class Seminar_form(ModelForm):
     class Meta:
         model = Seminar
         fields = '__all__'
-        exclude = ['created_by', 'number_of_days']
+        exclude = ['created_by']
 
 
 
