@@ -45,6 +45,62 @@ def booking_event(request):
         return HttpResponse("something went wrong")
 
 
+
+@csrf_exempt
+def booking_event(request):
+    participants = request.POST.get('name') 
+    event_id = request.POST.get('event_id') 
+
+    print(participants)
+
+    event = Event.objects.get(id=event_id)
+    event_details = Event.objects.filter(id=event_id)
+    
+    test = event_ticket_booking.objects.create(owner=request.user, event = event, participants = participants, payment_status = 'Pending')
+
+    if test:
+
+        temp = 'Booking for Event is successful'
+        temp1 = ' Event participants names are ' + participants
+
+        temp2 = temp+temp1
+
+        return HttpResponse(temp2)
+
+    else:
+        
+        return HttpResponse("something went wrong")
+
+
+
+@csrf_exempt
+def booking_seminar(request):
+
+    
+    participants = request.POST.get('name') 
+    event_id = request.POST.get('event_id') 
+
+    print(participants)
+
+    event = Event.objects.get(id=event_id)
+    event_details = Event.objects.filter(id=event_id)
+    
+    test = event_ticket_booking.objects.create(owner=request.user, event = event, participants = participants, payment_status = 'Pending')
+
+    if test:
+
+        temp = 'Booking for Event is successful'
+        temp1 = ' Event participants names are ' + participants
+
+        temp2 = temp+temp1
+
+        return HttpResponse(temp2)
+
+    else:
+        
+        return HttpResponse("something went wrong")
+
+
 def my_bookings(request):
 
     data = event_ticket_booking.objects.filter(owner=request.user)

@@ -42,6 +42,8 @@ def event_details(request, event_id):
 def seminars(request):
 
     data = Seminar.objects.all()
+    print(data)
+    print(data)
     return render(request, 'seminars_show.html', {'data':data})
 
 def lectures(request):
@@ -154,3 +156,14 @@ def delete_feedback_questions(request, feeback_id):
     instance.delete()
 
     return redirect('list_feedback_questions', event_id = instance_id )
+
+
+
+
+
+
+def seminars_details(request, seminar_id):
+
+    data = Event.objects.get(id = seminar_id)
+
+    return render(request, 'staff/seminar/seminar_details.html', {'data':data, 'days':days, 'schedule':schedule})

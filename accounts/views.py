@@ -118,8 +118,9 @@ def booking_detail_view(request, booking_id):
     return render(request, 'accounts/my_event_detail_view.html', {'data':data})
 
 from django.shortcuts import redirect
-def logout(request):
+def logout_view(request):
 
     logout(request)
-
-    return redirect('logout')
+    
+    
+    return HttpResponseRedirect(reverse('index'))
